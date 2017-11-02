@@ -26,8 +26,18 @@ namespace ConsoleApplication3
                 Console.WriteLine("main _count " + _count);
             }
 
+
+            ThreadPool.QueueUserWorkItem(ThreadProc);
+
             Console.ReadKey();
         }
+        //https://msdn.microsoft.com/it-it/library/0ka9477y(v=vs.110).aspx
+        private static void ThreadProc(object state)
+        {
+            
+            Console.WriteLine("Hello from the thread pool.");
+        }
+
         private static void DoSomeThing()
         {
             for (int i = 0; i < 5; i++)
