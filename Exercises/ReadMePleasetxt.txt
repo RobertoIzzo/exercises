@@ -3,6 +3,9 @@ deadlock
 memoryleask
 stackoverflow
 bufferoverflow
+
+------------------
+
 webfarm
 webgarden 
 mutex / monitor
@@ -30,3 +33,11 @@ async : dont wait end task
 
 
 iis request queue -->clr trheadpool--->porcessing request
+
+--------------------
+
+tmain-->start newthread1 no join   :  they go parallel =>no result ,no block tcaller
+tmain-->start newthread1 join      :  main is block wait finish thread1 => no result , block tcaller, know whe thread1 end (tmain need t1 finish)
+tmain-->start task1 wait or result :  main is block wait finish task1 => result , block tcaller (tmain need task1 finish)
+tmain-->start ASYNC task1          :  main is not block wait finish task1 => result , no block tcaller
+ 
