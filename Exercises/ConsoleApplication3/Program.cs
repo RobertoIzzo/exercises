@@ -32,6 +32,7 @@ namespace ConsoleApplication3
             Console.ReadKey();
         }
         //https://msdn.microsoft.com/it-it/library/0ka9477y(v=vs.110).aspx
+        //http://www.c-sharpcorner.com/UploadFile/1d42da/threading-pooling-in-C-Sharp/
         private static void ThreadProc(object state)
         {
             
