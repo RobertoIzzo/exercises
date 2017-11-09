@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{2B017F45-FB8D-4BF3-831A-824F1592FE77}"
 EndProject
@@ -13,11 +13,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication5", "Cons
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Thread", "Thread", "{231FB2BF-DEB0-4F39-9AB8-BDD79020523E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B245AE5-2A66-4C3A-9077-F803A3A85CB3}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMePleasetxt.txt = ReadMePleasetxt.txt
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{52112DFC-DEA2-4637-BED3-94CC9AF0A514}"
 EndProject
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task", "Task", "{A8FFCDAD-46EA-492E-8834-4E66A2F7220C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskAndThread", "TaskAndThread\TaskAndThread.csproj", "{E05D0C7E-BC57-414E-AD14-947E9C14537D}"
+=======
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task", "Task", "{4104BAFA-70A4-42A3-BF57-EFC3EFD135FB}"
+>>>>>>> fcfcf80e9f780e17e778f5d1bb152789efb92e49
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,7 +67,11 @@ Global
 		{169D36EC-7EAB-4CBD-86ED-A00CCDE0EAC6} = {231FB2BF-DEB0-4F39-9AB8-BDD79020523E}
 		{D35394A9-A584-40C5-A1BC-8A3FE9113439} = {231FB2BF-DEB0-4F39-9AB8-BDD79020523E}
 		{11169ADE-827F-4582-94EB-2783E80E3E34} = {231FB2BF-DEB0-4F39-9AB8-BDD79020523E}
+<<<<<<< HEAD
 		{52112DFC-DEA2-4637-BED3-94CC9AF0A514} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
 		{E05D0C7E-BC57-414E-AD14-947E9C14537D} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
+=======
+		{52112DFC-DEA2-4637-BED3-94CC9AF0A514} = {4104BAFA-70A4-42A3-BF57-EFC3EFD135FB}
+>>>>>>> fcfcf80e9f780e17e778f5d1bb152789efb92e49
 	EndGlobalSection
 EndGlobal
