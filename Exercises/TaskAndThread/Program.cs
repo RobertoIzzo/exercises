@@ -30,14 +30,68 @@ namespace TaskAndThread
            //    Thread.Sleep(10000);
            //});
            //tk1.Wait();
-           Task <int> tk1 = Task.Run(() =>
-            {
-                Thread.Sleep(10000);
-                return 3;
-            } );
-            
+           //Task<int> tk1 = Task.Run(() =>
+           // {
 
-            Console.WriteLine("hello from main , task result"+ tk1.Result);
+           //     Thread.Sleep(9000);
+           //     Console.WriteLine("tk1");
+           //     return 1;
+           // });
+           // Task<int> tk2 = Task.Run(() =>
+           // {
+           //     Thread.Sleep(3000);
+           //     Console.WriteLine("tk2");
+           //     return 2;
+           // });
+           // Task<int> tk3 = Task.Run(() =>
+           // {
+           //     Thread.Sleep(6000);
+           //     Console.WriteLine("tk3");
+           //     return 3;
+           // });
+            //questi wait non bloccano
+            //Task.WaitAll();
+            //Task.WaitAny();
+            //questo si
+            //tk3.Wait();
+
+            //Console.WriteLine("end main");
+
+            object _lock = new object();
+
+            //Concurrence
+            Console.WriteLine("date "+ DateTime.Now);
+            var list = Enumerable.Range(0, 100000);
+            List<int> ll = new List<int>();
+            Parallel.ForEach(list, item =>
+            {
+                //senza questo ll non sarà 100000 ma meno
+                lock (_lock)
+                {
+                    int x = item - 1;
+                    ll.Add(x);
+                }
+              
+            });
+            Console.WriteLine("tot l " + ll.Count);
+            Console.WriteLine("date " + DateTime.Now);
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("date " + DateTime.Now);
+            var list1 = Enumerable.Range(0, 100000);
+            List<int> ll1 = new List<int>();
+            foreach (var item in list1)
+            {
+                var x = item - 1;
+                ll1.Add(x);
+            }
+            Console.WriteLine("tot l " + ll1.Count);
+            Console.WriteLine("date " + DateTime.Now);
+
+            Console.WriteLine("end main");
+
+            Console.ReadLine();
 
         }
     }
