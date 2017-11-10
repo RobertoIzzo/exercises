@@ -43,6 +43,7 @@ tmain-->start ASYNC task1          :  main is not block wait finish task1 => res
  
  
  https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+ 
  Async void methods have different error-handling semantics. When an exception is thrown out of an async Task or async Task<T> method,
  that exception is captured and placed on the Task object. With async void methods, there is no Task object, 
  so any exceptions thrown out of an async void method will be raised directly on the SynchronizationContext that was active when the async void method started. 
@@ -72,3 +73,55 @@ ConfigureAwait(false)  when the task is done, the continuation will be serialize
 You can work around this by providing your own async-compatible context. 
 AsyncContext is a general-purpose context that can be used to enable an asynchronous MainAsync:
 
+the Main method can’t be async. If the Main method were async, it could return before it completed, 
+causing the program to end. Figure 4 demonstrates this exception to the guideline:
+The Main method for a console application is one of the few situations where code may block on an asynchronous method.
+Stephen Cleary
+***Avoid Async Void
+1)To summarize this first guideline, you should prefer async Task to async void.
+ Async Task methods enable easier error-handling, composability and testability.
+ The exception to this guideline is asynchronous event handlers, which must return void. 
+ This exception includes methods that are logically event handlers even 
+ if they’re not literally event handlers (for example, ICommand.Execute implementations).
+ 
+***Async All the Way
+ 2)shows a simple example where one method blocks on the result of an async method. 
+ This code will work just fine in a console application but will deadlock when called from a GUI or ASP.NET context. 
+ This behavior can be confusing, especially considering that stepping through the debugger implies that it’s the await that never completes. 
+ The actual cause of the deadlock is further up the call stack when Task.Wait is called.
+ The root cause of this deadlock is due to the way await handles contexts.
+ By default, when an incomplete Task is awaited, the current “context” is captured and used to resume the method when the Task completes.
+ This “context” is the current SynchronizationContext unless it’s null, in which case it’s the current TaskScheduler. 
+ GUI and ASP.NET applications have a SynchronizationContext that permits only one chunk of code to run at a time. 
+ When the await completes, it attempts to execute the remainder of the async method within the captured context. But that context already has a thread in it, which is (synchronously) waiting for the async method to complete. They’re each waiting for the other, causing a deadlock.
+
+Note that console applications don’t cause this deadlock. They have a thread pool SynchronizationContext 
+instead of a one-chunk-at-a-time SynchronizationContext, so when the await completes, it schedules the remainder of the async method on a thread pool thread.
+ The method is able to complete, which completes its returned task, and there’s no deadlock. 
+ This difference in behavior can be confusing when programmers write a test console program, 
+ observe the partially async code work as expected, and then move the same code into a GUI or ASP.NET application, where it deadlocks.
+ 
+ ***Configure Context
+ 3)You should not use ConfigureAwait when you have code after the await in the method that needs the context.
+ For GUI apps, this includes any code that manipulates GUI elements, writes data-bound properties or 
+ depends on a GUI-specific type such as Dispatcher/CoreDispatcher. 
+ For ASP.NET apps, this includes any code that uses HttpContext.
+ Current or builds an ASP.NET response, including return statements in controller actions.
+ Figure 7demonstrates one common pattern in GUI apps—having an async event handler disable its control at
+ the beginning of the method, perform some awaits and then re-enable its control at the end of the handler;
+ the event handler can’t give up its context because it needs to re-enable its control.
+ Each async method has its own context, so if one async method calls another async method, their contexts are independent.
+ rivate async void button1_Click(object sender, EventArgs e)
+{
+  button1.Enabled = false;
+  try
+  {
+    // Can't use ConfigureAwait here ...
+    await Task.Delay(1000);
+  }
+  finally
+  {
+    // Because we need the context here.
+    button1.Enabled = true;
+  }
+}
