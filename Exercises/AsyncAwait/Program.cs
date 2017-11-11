@@ -9,6 +9,7 @@ namespace AsyncAwait
 {
     //use for i/o operation that take  a lot time
     //async await  just maske more responsive the application , not more performance
+    //is not working at console program
     class Program
     {
         static void Main(string[] args)
@@ -32,7 +33,9 @@ namespace AsyncAwait
         {
             using (HttpClient client = new HttpClient())
             {
-                string res = await client.GetStringAsync("http://www.microsoft.it");
+                string res = await client.GetStringAsync("http://www.microsoft.it").ConfigureAwait(false);
+                //se devo fare altre cose ad esempio scrivere un file deve usare configure await false
+
                 return res;
             }
         }
