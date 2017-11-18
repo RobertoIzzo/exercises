@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,6 +68,13 @@ namespace Delegate
 
             //FUNC ACTION PREDICATE
 
+
+            Func<int, int, int> f = add;
+
+            Console.WriteLine("func "+ f(6,6));
+
+            Action<int, int> action = (x, y) => {Console.WriteLine();};
+            
             //EVENTS
 
             Console.ReadLine();
