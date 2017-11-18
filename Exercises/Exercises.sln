@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plink", "plink\plink.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizingResources", "ConsoleApplication4\SynchronizingResources.csproj", "{AC5C3A94-CF95-4477-AC67-7BFC19B12CB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "summary", "summary\summary.csproj", "{D10B2209-FA17-4A79-AB72-2BABC14C15A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{AC5C3A94-CF95-4477-AC67-7BFC19B12CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC5C3A94-CF95-4477-AC67-7BFC19B12CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC5C3A94-CF95-4477-AC67-7BFC19B12CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D10B2209-FA17-4A79-AB72-2BABC14C15A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10B2209-FA17-4A79-AB72-2BABC14C15A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10B2209-FA17-4A79-AB72-2BABC14C15A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10B2209-FA17-4A79-AB72-2BABC14C15A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{02FF5DE2-C0A2-4295-9EC5-F8755F73F25A} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
 		{5F1D2AE9-0C44-4901-8C13-FDBB77C6209D} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
 		{AC5C3A94-CF95-4477-AC67-7BFC19B12CB6} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
+		{D10B2209-FA17-4A79-AB72-2BABC14C15A9} = {A8FFCDAD-46EA-492E-8834-4E66A2F7220C}
 	EndGlobalSection
 EndGlobal

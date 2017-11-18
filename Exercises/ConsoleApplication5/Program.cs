@@ -36,13 +36,13 @@ namespace ConsoleApplication5
             //t3.Start();
             Console.ReadLine();
             basta = true;
-            Console.WriteLine("cazzarola terminato");
+            Console.WriteLine("pippo terminato");
             Console.WriteLine("_count :"+ _count);
             Console.ReadLine();
 
         }
 
-        private static void cazzarola()
+        private static void pippo()
         {
             while (!basta)
             {
