@@ -10,7 +10,7 @@ namespace Delegate
     class Program
     {
         private delegate Father covariance(int a, int b);
-        private delegate void controvariance(Soon s);
+        private delegate void controvariance(Son s);
 
         private delegate int calc(int a, int b);
         private delegate int calc1(int a, int b);
@@ -95,9 +95,9 @@ namespace Delegate
             pub2.OnChange += (sender, myArgs) => { Console.WriteLine(myArgs.Value); };
         }
 
-        static Soon Covariancemethod(int a, int b)
+        static Son Covariancemethod(int a, int b)
         {
-            return new Soon();
+            return new Son();
         }
 
         static void Controvariancemethod(Father f)
@@ -118,7 +118,7 @@ namespace Delegate
     }
 
     class Father { }
-    class Soon : Father { }
+    class Son : Father { }
 
 
     class Pub
