@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.Remoting.Messaging;
@@ -14,6 +15,8 @@ namespace exceptionAndType
     {
         static void Main(string[] args)
         {
+
+            #region TYPES
 
             // special Value type Enum
             Importance value = Importance.Critical;
@@ -40,13 +43,9 @@ namespace exceptionAndType
             List myList = new List();
             var card = myList[0];
             Console.WriteLine(card.segno);
+#endregion
 
-            //pointer type
-
-
-            Console.ReadLine();
-
-            #region exception
+            #region EXCEPTION
             try
             {
                 int i = int.Parse("ciao");
@@ -66,8 +65,6 @@ namespace exceptionAndType
                 //retrhow original exception whit some more message
                 throw new ArgumentException("message ", "paramname", ex);
             }
-
-
 
             try
             {
@@ -103,6 +100,10 @@ namespace exceptionAndType
                 Console.WriteLine("non ci arrivo qui");
             }
             #endregion
+
+
+            Console.ReadLine();
+
         }
 
         // special Value type Enum
@@ -114,6 +115,51 @@ namespace exceptionAndType
             Important = 3,
             Critical = 4
         };
+
+        //Generics Method
+        public T MyGenericMethod<T>()
+        {
+            var defaultValue = default(T);
+            return defaultValue;
+        }
+    }
+
+    //Generics
+    class Myclass<T> where T : class, new()
+    {
+        public Myclass()
+        {
+            MyProperty = new T();
+        }
+
+        T MyProperty { get; set; }
+    }
+
+    //Generics Nullable
+    struct Nullable<T> where T : struct
+    {
+        private T _value;
+        private bool _hasValue;
+
+        public Nullable(T value)
+        {
+            _value = value;
+            _hasValue = true;
+        }
+
+        public T Value
+        {
+            get
+            {
+                if(!_hasValue) throw new ArgumentException();
+                return _value;
+            }
+        }
+
+        public T GetValueOrDefault()
+        {
+            return _value;
+        }
     }
 
     public class Father
@@ -125,8 +171,7 @@ namespace exceptionAndType
         }
     }
 
-
-    public class Soon :Father
+    public class Soon : Father
     {
         private int _filed2;
 
@@ -167,7 +212,6 @@ namespace exceptionAndType
             _filed2 = field2;
         }
     }
-
 
     //Value type
     public struct Point
@@ -218,7 +262,7 @@ namespace exceptionAndType
         {
             return a + b;
         }
-        public int DoSomething(int a, int b, int c = 3, int d)
+        public int DoSomething(int a, int b, int d, int c = 3)
         {
             return a + b;
         }

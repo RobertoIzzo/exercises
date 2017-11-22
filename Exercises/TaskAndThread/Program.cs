@@ -30,11 +30,11 @@ namespace TaskAndThread
                 Thread.Sleep(10000);
             });
             tk1.Wait();
-            Task<int> tk1 = Task.Run(() =>
+            Task<int> tk0 = Task.Run(() =>
              {
 
                  Thread.Sleep(9000);
-                 Console.WriteLine("tk1");
+                 Console.WriteLine("tk0");
                  return 1;
              });
             Task<int> tk2 = Task.Run(() =>
@@ -56,8 +56,6 @@ namespace TaskAndThread
             tk3.Wait();
 
             Console.WriteLine("end main");
-
-           
 
             Console.ReadLine();
 
