@@ -105,6 +105,10 @@ namespace exceptionAndType
             }
             #endregion
 
+            //Generic
+            Myclass<Card> mc = new Myclass<Card>();
+            Console.WriteLine(mc.MyProperty.numero);
+
             //Conversion
 
 
@@ -135,7 +139,33 @@ namespace exceptionAndType
         }
     }
 
-    //Generics
+    //Generics Interface
+
+    //interface covariant
+    interface IInterface1<out T> where T :class
+    {
+        T MyGenericMethod();
+    }
+
+    //interface controvariant
+    interface IInterface2<in T> where T : class
+    {
+        void MyGenericMethod(T value);
+    }
+
+    //interface  covariant / controvariant
+    interface IInterface3<out T, in T1> where T : class
+    {
+        T MyGenericMethod(T1 value);
+    }
+
+    //interface  
+    interface IInterface4<T> where T : class
+    {
+        T MyGenericMethod(T value);
+    }
+
+    //generic class
     class Myclass<T> where T : class, new()
     {
         public Myclass()
@@ -143,7 +173,7 @@ namespace exceptionAndType
             MyProperty = new T();
         }
 
-        T MyProperty { get; set; }
+        public T MyProperty { get; set; }
     }
 
     //Generics Nullable
