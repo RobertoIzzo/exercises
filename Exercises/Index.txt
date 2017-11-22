@@ -4,3 +4,7 @@ task2
 thread
 Delegate
 ***capitolo2
+delegate
+exceptionand type
+***capitolo3
+***capitolo4

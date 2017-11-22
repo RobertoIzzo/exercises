@@ -15,6 +15,10 @@ namespace exceptionAndType
     {
         static void Main(string[] args)
         {
+            //extension method non nestes , non generic static class
+            string pippo = "Pippo";
+            Console.WriteLine(pippo + " to lower => " + pippo.GetLower());
+            Console.ReadLine();
 
             #region TYPES
 
@@ -43,7 +47,7 @@ namespace exceptionAndType
             List myList = new List();
             var card = myList[0];
             Console.WriteLine(card.segno);
-#endregion
+            #endregion
 
             #region EXCEPTION
             try
@@ -101,6 +105,13 @@ namespace exceptionAndType
             }
             #endregion
 
+            //Conversion
+
+
+
+            //Dynamic
+
+
 
             Console.ReadLine();
 
@@ -151,7 +162,7 @@ namespace exceptionAndType
         {
             get
             {
-                if(!_hasValue) throw new ArgumentException();
+                if (!_hasValue) throw new ArgumentException();
                 return _value;
             }
         }
@@ -161,6 +172,86 @@ namespace exceptionAndType
             return _value;
         }
     }
+
+    //extension
+    public static class MyExtension
+    {
+        public static string GetLower(this string arg)
+        {
+            return arg.ToLower();
+        }
+    }
+
+    
+    //Interface
+
+    //Abstract
+
+
+    //Inheritance 
+    public class Animale
+    {
+        public virtual void faverso()
+        {
+            Console.WriteLine("verso animale");
+        }
+
+        public virtual void getTipo()
+        {
+            Console.WriteLine("tipo animale");
+        }
+
+        public virtual void cammina()
+        {
+            Console.WriteLine(" cammina animale");
+        }
+
+        public virtual void mangia()
+        {
+            Console.WriteLine(" mangia animale");
+        }
+
+        public virtual void dormi(int ore)
+        {
+            Console.WriteLine("  animale dorme "+ ore);
+        }
+    }
+
+    public sealed class Cane : Animale
+    {
+        //hide base case sensitive
+        public void faverso()
+        {
+            Console.WriteLine("verso Cane");
+        }
+
+        //new
+        public new void getTipo()
+        {
+            Console.WriteLine("tipo Cane");
+        }
+
+        public override void cammina()
+        {
+            Console.WriteLine(" cammina Cane");
+        }
+
+        public void mangia(string cibo)
+        {
+            Console.WriteLine(" il  Cane mangia :" + cibo);
+        }
+        //error compile
+        //public override void dormi()
+        //{
+        //    Console.WriteLine(" dormi Cane");
+        //}
+    }
+
+    //SEALED Cane
+    //public class caneLupo : Cane
+    //{
+
+    //}
 
     public class Father
     {
