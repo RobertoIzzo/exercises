@@ -13,6 +13,7 @@ namespace exceptionAndType
 {
     class Program
     {
+		 delegate  T Testd<T> (T arg) ;
         static void Main(string[] args)
         {
             //extension method non nestes , non generic static class
@@ -115,7 +116,11 @@ namespace exceptionAndType
 
             //Dynamic
 
-
+             Card1 c = null;
+             Test tt = new Test();
+             Testd<Card1>  del = tt.method;
+        
+             del(c);
 
             Console.ReadLine();
 
@@ -139,6 +144,21 @@ namespace exceptionAndType
         }
     }
 
+	  public class Card1{
+       }
+      
+      
+       public class Test{
+         public  T method<T> (T arg)   where T : class, new()
+         {
+       Console.WriteLine("method");
+             T t = new T();
+ 
+             return t;
+            
+         }
+	   }
+	   
     //Generics Interface
 
     //interface covariant
