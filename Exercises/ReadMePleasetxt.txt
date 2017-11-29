@@ -14,16 +14,19 @@ iis request queue -->clr trheadpool--->porcessing request
 limited number of threads in the .Net Thread Pool (250 per CPU by default),
 -------------------
  https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
- 
+ ***async void
  Async void methods have different error-handling semantics. When an exception is thrown out of an async Task or async Task<T> method,
  that exception is captured and placed on the Task object. With async void methods, there is no Task object, 
- so any exceptions thrown out of an async void method will be raised directly on the SynchronizationContext that was active when the async void method started. 
-  By default, when an incomplete Task is awaited, the current “context” is captured and used to resume the method when the Task completes. This “context” is
-  the current SynchronizationContext unless it’s null, in which case it’s the current TaskScheduler. 
-  GUI and ASP.NET applications have a SynchronizationContext that permits only one chunk of code to run at a time. 
+ so any exceptions thrown out of an async void method will be raised directly on the SynchronizationContext that was active when the async void
+ method started. 
+ By default, when an incomplete Task is awaited, the current “context” is captured and used to resume the method when the Task completes. 
+ This “context” is
+ the current SynchronizationContext unless it’s null, in which case it’s the current TaskScheduler. 
+ GUI and ASP.NET applications have a SynchronizationContext that permits only one chunk of code to run at a time. 
  Note that console applications don’t cause this deadlock. 
  They have a thread pool SynchronizationContext instead of a one-chunk-at-a-time SynchronizationContext, so when the await completes,
- it schedules the remainder of the async method on a thread pool thread. The method is able to complete, which completes its returned task, and there’s no deadlock.
+ it schedules the remainder of the async method on a thread pool thread. The method is able to complete, which completes its returned task, 
+ and there’s no deadlock.
  This difference in behavior can be confusing when programmers write a test console program, 
  observe the partially async code work as expected, and then move the same code into a GUI or ASP.NET application, where it deadlocks.
  

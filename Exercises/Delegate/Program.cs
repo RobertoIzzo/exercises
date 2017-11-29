@@ -93,6 +93,7 @@ namespace Delegate
 
             Pub2 pub2 = new Pub2();
             pub2.OnChange += (sender, myArgs) => { Console.WriteLine(myArgs.Value); };
+            pub2.Raise();//esegue OnChange
         }
 
         static Son Covariancemethod(int a, int b)
@@ -191,4 +192,28 @@ namespace Delegate
         }
         public int Value { get; set; }
     }
+    //https://docs.microsoft.com/en-us/dotnet/standard/events/
+    //event vs callback
+    public class MyClass_Event
+    {
+        public event EventHandler OnChange;
+
+        public void DoWork()
+        {
+            if (OnChange == null)
+                throw new Exception("Set the event MakeMeDoWork before calling this method.");
+            OnChange(this, EventArgs.Empty);
+        }
+    }
+
+    public class MyClass_Callback
+    {
+        public void DoWork(EventHandler callback)
+        {
+            if (callback == null)
+                throw new ArgumentException("Set the callback.", "callback"); // better design
+            callback(this, EventArgs.Empty);
+        }
+    }
+
 }
