@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
@@ -13,7 +18,7 @@ namespace exceptionAndType
 {
     class Program
     {
-		 delegate  T Testd<T> (T arg) ;
+        delegate T Testd<T>(T arg);
         static void Main(string[] args)
         {
             //extension method non nestes , non generic static class
@@ -110,17 +115,64 @@ namespace exceptionAndType
             Myclass<Card> mc = new Myclass<Card>();
             Console.WriteLine(mc.MyProperty.numero);
 
-            //Conversion
+            //boxing
+            //value type into heap
+            int xx = 4;
+            object oo = xx;
+
+            //unboxing
+            //refernce type into stack
+            xx = (int)oo;
+
+            //implicit convertion
+            int aaa = 42;
+            double yyy = aaa;
+
+            HttpClient httpClient = new HttpClient();
+            object oooo = httpClient;
+
+            //type safety explicit conversion
+
+            object memorys = new MemoryStream();
+            MemoryStream mm = (MemoryStream)memorys;
+
+            //own type Implict explicit Conversion
+            Money money = new Money(45.45M);
+            decimal sss = money;
+            int iii = (int)sss;
+
+            //helper
+            int a = Convert.ToInt32(45.43M);
+            int ssss = Int32.Parse("42");
+            int dsdsdsd = ClassInterfaceType.TryParse("42");
 
 
+            //own class override tostring for parse tryparse and implementing IFormattable for Convert
+
+
+            // check if conversion is allowed
+            //  is return true or false 
+            DbConnection connection = null;
+            if (connection is SqlConnection)
+            {
+                Console.WriteLine("do something");
+            }
+
+            // as return conversion or null if is not possible
+            Stream myStream = null;
+            MemoryStream ms =  myStream as MemoryStream;
+
+
+            //generic delegate   
+            Card1 c = null;
+            Test0 tt = new Test0();
+            Testd<Card1> del = tt.method;
+
+            del(c);
 
             //Dynamic
+            //DynamicObject / ExpandoObject
 
-             Card1 c = null;
-             Test tt = new Test();
-             Testd<Card1>  del = tt.method;
-        
-             del(c);
 
             Console.ReadLine();
 
@@ -144,25 +196,47 @@ namespace exceptionAndType
         }
     }
 
-	  public class Card1{
-       }
-      
-      
-       public class Test{
-         public  T method<T> (T arg)   where T : class, new()
-         {
-       Console.WriteLine("method");
-             T t = new T();
- 
-             return t;
-            
-         }
-	   }
-	   
+    public class Money
+    {
+        public decimal Dec { get; set; }
+
+        public Money(decimal dec)
+        {
+            Dec = dec;
+        }
+        public static implicit operator decimal(Money money)
+        {
+            return money.Dec;
+        }
+
+        public static explicit operator int(Money money)
+        {
+            return (int)money.Dec;
+        }
+    }
+
+
+    public class Card1
+    {
+    }
+
+
+    public class Test0
+    {
+        public T method<T>(T arg) where T : class, new()
+        {
+            Console.WriteLine("method");
+            T t = new T();
+
+            return t;
+
+        }
+    }
+
     //Generics Interface
 
     //interface covariant
-    interface IInterface1<out T> where T :class
+    interface IInterface1<out T> where T : class
     {
         T MyGenericMethod();
     }
@@ -232,7 +306,7 @@ namespace exceptionAndType
         }
     }
 
-    
+
     //Interface
 
     //Abstract
@@ -263,7 +337,7 @@ namespace exceptionAndType
 
         public virtual void dormi(int ore)
         {
-            Console.WriteLine("  animale dorme "+ ore);
+            Console.WriteLine("  animale dorme " + ore);
         }
     }
 

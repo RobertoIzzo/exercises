@@ -1,10 +1,4 @@
-***capitolo1
-task
-task2
-thread
-Delegate
-***capitolo2
-delegate
-exceptionand type
-***capitolo3
-***capitolo4
+1gestire flusso programma
+2creare usare tipi
+3debug e preotezione
+4accesso ai dati
