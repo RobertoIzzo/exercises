@@ -208,7 +208,8 @@ namespace Delegate
 
     //https://www.codeproject.com/Articles/11541/The-Simplest-C-Events-Example-Imaginable
     //https://docs.microsoft.com/en-us/dotnet/standard/events/
-    //event vs callback
+    //https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
+    //event vs callback , observer designer pattern
     public class MyClass_Event
     {
         public event EventHandler OnChange;
