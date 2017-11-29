@@ -94,6 +94,19 @@ namespace Delegate
             Pub2 pub2 = new Pub2();
             pub2.OnChange += (sender, myArgs) => { Console.WriteLine(myArgs.Value); };
             pub2.Raise();//esegue OnChange
+
+            MyClass_Event myClassEvent = new MyClass_Event();
+            myClassEvent.OnChange += DoSome;
+            myClassEvent.Raise();
+
+           
+        }
+
+       
+
+        static void DoSome(object sender, EventArgs e)
+        {
+            Console.WriteLine("DoSome");
         }
 
         static Son Covariancemethod(int a, int b)
@@ -114,9 +127,9 @@ namespace Delegate
         {
             return a * b;
         }
-
-       
     }
+
+   
 
     class Father { }
     class Son : Father { }
@@ -192,13 +205,15 @@ namespace Delegate
         }
         public int Value { get; set; }
     }
+
+    //https://www.codeproject.com/Articles/11541/The-Simplest-C-Events-Example-Imaginable
     //https://docs.microsoft.com/en-us/dotnet/standard/events/
     //event vs callback
     public class MyClass_Event
     {
         public event EventHandler OnChange;
 
-        public void DoWork()
+        public void Raise()
         {
             if (OnChange == null)
                 throw new Exception("Set the event MakeMeDoWork before calling this method.");
@@ -215,5 +230,7 @@ namespace Delegate
             callback(this, EventArgs.Empty);
         }
     }
+
+  
 
 }
