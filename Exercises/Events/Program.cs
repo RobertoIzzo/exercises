@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Events
@@ -29,37 +30,44 @@ namespace Events
         static void Main(string[] args)
         {
             Provider m = new Provider();
+            //observer si registra al provider
             Listener l = new Listener();
             l.Subscribe(m);
+            //observable start to notify if something appen 
             m.Start();
         }
     }
 
+    //observer
     public class Listener
     {
         public void Subscribe(Provider provider)
         {
-            //mi registro al provider
+          
             provider.Tick += HeardIt;
         }
-        private void HeardIt(Provider m, EventArgs e)
+        private void HeardIt(object sender, MyArgs e)
         {
-            System.Console.WriteLine("HEARD IT");
+            System.Console.WriteLine("HEARD IT : "+ e.Value);
         }
     }
 
+    //observable
     public class Provider
     {
         public event EventHandler<MyArgs> Tick =  delegate { };
        
-        public void Start(MyArgs args)
+        public void Start()
         {
+            int count = 0;
             while (true)
             {
                 System.Threading.Thread.Sleep(3000);
                 if (Tick != null)
                 {
-                    Tick(this, args);
+                    count++;
+                    MyArgs myArgs = new MyArgs(count);
+                    Tick(this, myArgs);
                 }
             }
         }
