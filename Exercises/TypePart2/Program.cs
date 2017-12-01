@@ -49,7 +49,11 @@ namespace TypePart2
             //IUnknown
             //IFormattable
 
+            //Reflection
+            int ii = 5;
+            Type type1 = ii.GetType();
 
+            
             // Attribute and Reflection
 
             /*Attribute is one of METADATA

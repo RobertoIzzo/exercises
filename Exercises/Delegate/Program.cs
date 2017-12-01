@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,15 @@ namespace Delegate
         private delegate int anon(int a, int b);
         static void Main(string[] args)
         {
+            BlockExpression block = Expression.Block(
+               Expression.Call(null,
+                   typeof(Console).GetMethod("Write", new[] { typeof(String) }),
+                   Expression.Constant("helo")),
+                Expression.Call(null,
+                   typeof(Console).GetMethod("ReadLine"))
+               );
+            //scrive,complia,esegue
+            Expression.Lambda<Action>(block).Compile()();
 
             bool a = false;
             bool b = true;
@@ -69,14 +79,31 @@ namespace Delegate
 
             //FUNC ACTION PREDICATE
 
-
+            //return value
             Func<int, int, int> f = add;
+
+            //lambda function is compact anonymous function
+            Func<int, int, int> f1 = add;
 
             Console.WriteLine("func "+ f(6,6));
 
+            //not return value
             Action<int, int> action = (x, y) => {Console.WriteLine();};
 
             Predicate<int> pred = (x) => x > 1;
+
+            // EXPRESSION TREE code in tree like data strructure just like CODEDOM that rapresent code in trre like maner
+            //you can use expresion tree for generate code like CodeDOM
+            //BlockExpression block = Expression.Block(
+            //    Expression.Call(null,
+            //        typeof(Console).GetMethod("Write", new[] {typeof (String)}),
+            //        Expression.Constant("helo")),
+            //     Expression.Call(null,
+            //        typeof(Console).GetMethod("ReadLine"))
+            //    );
+
+            //Expression.Lambda<Action>(block).Compile();
+
             //EVENTS
             //1
             Pub pub = new Pub();

@@ -144,7 +144,7 @@ namespace exceptionAndType
             //helper
             int a = Convert.ToInt32(45.43M);
             int ssss = Int32.Parse("42");
-            int dsdsdsd = ClassInterfaceType.TryParse("42");
+            //int dsdsdsd = ClassInterfaceType.TryParse("42");
 
 
             //own class override tostring for parse tryparse and implementing IFormattable for Convert
@@ -199,6 +199,10 @@ namespace exceptionAndType
     public class Money
     {
         public decimal Dec { get; set; }
+
+        public Money()
+        {
+        }
 
         public Money(decimal dec)
         {
