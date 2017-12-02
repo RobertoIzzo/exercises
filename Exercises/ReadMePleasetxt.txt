@@ -1,3 +1,42 @@
+Usato per ottenere la dimensione in byte per un tipo non gestito. I tipi non gestiti includono i tipi predefiniti che sono elencati nella tabella riportata di seguito, nonché quanto segue:
+Tipi enum
+Tipi puntatore
+Struct definiti dall'utente che non contengono campi o proprietà che sono tipi di riferimento
+Nell'esempio seguente viene illustrato come ottenere la dimensione di un int:
+C#
+
+
+***typeof  
+int intSize = sizeof(int);
+System.Type type = typeof(int);  
+
+***GetType
+Per ottenere il tipo di runtime di un'espressione, è possibile usare il metodo di .NET Framework GetType, come nell'esempio seguente:
+int i = 0;  
+System.Type type = i.GetType();
+
+***nameof
+https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/nameof
+int p {  
+   get { return this.p; }  
+   set { this.p = value; PropertyChanged(this, new PropertyChangedEventArgs(nameof(this.p)); } // nameof(p) works too  
+}
+
+ESEMPI
+void f(string s) {  
+   if (s == null) throw new ArgumentNullException(nameof(s));  
+}
+
+void f(int i) {  
+   Log(nameof(f), "method entry");  
+}
+
+[DebuggerDisplay("={" + nameof(GetString) + "()}")]  
+class C {  
+   string GetString() { }  
+}
+----------------------
+segmentation fault
 race condition
 deadlock
 memoryleak
