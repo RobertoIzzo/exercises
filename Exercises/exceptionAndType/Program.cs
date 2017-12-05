@@ -16,6 +16,16 @@ using System.Threading.Tasks;
 
 namespace exceptionAndType
 {
+    /// <summary>
+    ///                                           T y p e
+    /// 
+    /// obj                   (reference type)
+    /// string                (reference type)
+    /// enum                  (System.Enum is a reference type, but any specific enum type is a value type) enum foo?
+    /// delegate              (reference type)
+    /// int, char , bool,Date (value type)   int?, DateTime?
+    /// struct                (value type)
+    /// </summary>
     class Program
     {
         delegate T Testd<T>(T arg);
@@ -48,6 +58,14 @@ namespace exceptionAndType
             Test t = new Test();
             t.DoSomething(1, 2);
             var fielfStatic = Test.FieldStatic;
+
+            //String is array of char .Is refernce tyope but use = != like value type check value not refernxe.Is immutable.
+            //every change create new string
+            //string, string builder, index of startwith, CultureInfo .save data in insensitive cultureinfo in database and after formatting 
+            //in a way of user
+            //IFormatProvider IFormattable
+
+
 
             //indexer
             List myList = new List();
