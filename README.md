@@ -1,2 +1,2 @@
-# exercises
-Some exercises to learn the language 
+# Exercises
+Some exercises to learn the C# language 
