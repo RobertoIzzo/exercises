@@ -2,6 +2,7 @@
 
 -https://en.wikipedia.org/wiki/Code_Access_Security
 -https://docs.microsoft.com/en-us/dotnet/framework/misc/code-access-security-basics
+-http://www.c-sharpcorner.com/UploadFile/84c85b/net-code-access-security-cas/
 
 Every application that targets the common language runtime (that is, every managed application) must interact with the runtime's security system. When a managed application is loaded, its host automatically grants it a set of permissions. These permissions are determined by the host's local security settings or by the sandbox the application is in. Depending on these permissions, the application either runs properly or generates a security exception.
 The default host for desktop applications allows code to run in full trust. Therefore, if your application targets the desktop, it has an unrestricted permission set. Other hosts or sandboxes provide a limited permission set for applications. Because the permission set can change from host to host, you must design your application to use only the permissions that your target host allows.
