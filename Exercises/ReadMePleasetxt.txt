@@ -75,7 +75,18 @@ crud same table :  webapp/iis, webapi/iis, wcf/iis, services, localapp
 
 iis request queue -->clr trheadpool--->porcessing request
 limited number of threads in the .Net Thread Pool (250 per CPU by default),
+
+
 -------------------
+
+EXPRESSION VS FUNC<T>
+
+Most times you're going to want Func or Action if all that needs to happen is to run some code. You need Expression when the code needs to be analyzed, serialized, or optimized before it is run. Expression is for thinking about code, Func/Action is for running it.
+------------------------
+
+
+
+
  https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
  ***async void
  Async void methods have different error-handling semantics. When an exception is thrown out of an async Task or async Task<T> method,
