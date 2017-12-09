@@ -1,4 +1,6 @@
-1gestire flusso programma
-2creare usare tipi
-3debug e preotezione
-4accesso ai dati
+Exam 70/483
+
+1. Gestire flusso programma
+2. Creare usare tipi
+3. Debug e preotezione
+4. Accesso ai dati
