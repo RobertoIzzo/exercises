@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,11 +56,85 @@ namespace DataAccess
             #endregion
 
             #region STREAM
+            //stream is series of byte
+            //file is series of byte stored in hd
+            //socket is series of byte
+            //READ STREAM :
+            //can translate bytes in file
+            //can deserialize in obj
+            //WRITE STREAM
+            //translate obj in series of bytes and send to stream then can send cross a network or store in file
+            //convert char in bytes is call encode  CHAR take 2 byte in memory
+            //encode in UTF8 or ASCII
+            //SEEKING
+            //position of stream file have cocept of position, sokcet no.
+
+            string path0 = @"C:\Users\roberto_2\TestEsame\test1.dat";
+
+            //WRITE
+            //1 si crea uno stream
+            //2 si fa un encode di una stringa(una serie di char) in un array di bytes
+            //3 scrivo bytes dentro stream file for store
+            using (FileStream fileStream = File.Create(path0))
+            {
+                string content = "test";
+                byte[] data = Encoding.UTF8.GetBytes(content);
+                fileStream.Write(data,0,data.Length);
+            }
+
+            using (StreamWriter streamWriter = File.CreateText(path0))
+            {
+                string content = "test";
+                streamWriter.Write(content);
+            }
+
+            //READ
+            using (FileStream fileStream = File.OpenRead(path0))
+            {
+                byte[] data = new byte[fileStream.Length];
+
+                for (int i = 0; i < fileStream.Length; i++)
+                {
+                    data[i] = (byte) fileStream.ReadByte();
+                }
+                Console.WriteLine(Encoding.UTF8.GetString(data));
+            }
+          
+
+            using (StreamReader streamWriter = File.OpenText(path0))
+            {
+                Console.WriteLine(streamWriter.ReadLine());
+            }
+
+
+            using (FileStream fileStream = File.Create(path0))
+            {
+                using (BufferedStream buffer = new BufferedStream(fileStream))
+                {
+                    using (StreamWriter streamWriter = new StreamWriter(buffer))
+                    {
+                        streamWriter.WriteLine("asas");
+                    } 
+                }
+            }
+            #endregion
+
+            #region NETWORK
+            WebRequest request = WebRequest.Create("http:\\www.google.it");
+            WebResponse response = request.GetResponse();
+
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            string resp = reader.ReadToEnd();
+            Console.WriteLine(resp);
+            response.Close();
 
             #endregion
 
+
             Console.ReadLine();
         }
+           
+       
 
 
         private static void ListDir(DirectoryInfo di, string pattern, int levelmax, int currentlev)

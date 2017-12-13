@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugAbdSecurity", "DebugAb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{B2A53E54-E0AB-4B53-84B0-393154E1E7F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait1", "AsyncAwait1\AsyncAwait1.csproj", "{FF843319-F3AC-4130-B60A-4999228A3498}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumeDATA", "ConsumeDATA\ConsumeDATA.csproj", "{BCDED567-FE21-4188-9B86-C24843A5B365}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +151,14 @@ Global
 		{B2A53E54-E0AB-4B53-84B0-393154E1E7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A53E54-E0AB-4B53-84B0-393154E1E7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A53E54-E0AB-4B53-84B0-393154E1E7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF843319-F3AC-4130-B60A-4999228A3498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF843319-F3AC-4130-B60A-4999228A3498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF843319-F3AC-4130-B60A-4999228A3498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF843319-F3AC-4130-B60A-4999228A3498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDED567-FE21-4188-9B86-C24843A5B365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDED567-FE21-4188-9B86-C24843A5B365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDED567-FE21-4188-9B86-C24843A5B365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDED567-FE21-4188-9B86-C24843A5B365}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
