@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -21,11 +23,39 @@ namespace ConsumeDATA
 
         static void Main(string[] args)
         {
+            #region ado
             var connection = System.Configuration.ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
             Connect(connection);
+
+            #endregion
+
+            #region orm
+            try
+            {
+                //mi crea un db ConsumeDATA.dbrobContext (progetto.nomeClasseContext
+                //e una tabella Users (plurale)
+                using (dbrobContext ctx = new dbrobContext())
+                {
+                    ctx.User.Add(new User() { Name = "TetsEntity" });
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            #endregion
+
+            
+            //WCF
+            
+            //XML AND JSON
+
+
             Console.WriteLine("fine");
             Console.ReadLine();
         }
+
         //ADO net appling connection pooling
         static void Connect(string connectionstring)
         {
@@ -44,6 +74,7 @@ namespace ConsumeDATA
                         while (reader.Read())
                         {
                             Console.WriteLine(reader["nome"]);
+                            user.Name = reader["nome"].ToString();
                         }
 
                         while (reader.HasRows)
@@ -64,7 +95,6 @@ namespace ConsumeDATA
                         command1.Parameters.AddWithValue("@nome", "stefano");
                         command1.Connection = connection;
                         command1.ExecuteNonQuery();
-                        throw new Exception();
                         string queryInsert1 = @"insert into  utenti (nome) values (@nome)";
                         SqlCommand command2 = new SqlCommand(queryInsert1);
                         command2.Parameters.AddWithValue("@nome", "mimmo");
@@ -84,6 +114,20 @@ namespace ConsumeDATA
 
     public class User
     {
-        public string name;
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
+
+    public class dbrobContext : DbContext
+    {
+        public dbrobContext()
+        : base("name=MyDB")
+        {
+        }
+       
+        public IDbSet<User> User { get; set; }
+    }
+
+
+   
 }

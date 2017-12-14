@@ -61,6 +61,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait1", "AsyncAwait1\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumeDATA", "ConsumeDATA\ConsumeDATA.csproj", "{BCDED567-FE21-4188-9B86-C24843A5B365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqEx", "LinqEx\LinqEx.csproj", "{08226B18-B46B-40A1-86D8-AEA15CEECB80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionEx", "CollectionEx\CollectionEx.csproj", "{4F688DD2-251F-463A-B09C-32873742F483}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +163,14 @@ Global
 		{BCDED567-FE21-4188-9B86-C24843A5B365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCDED567-FE21-4188-9B86-C24843A5B365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCDED567-FE21-4188-9B86-C24843A5B365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08226B18-B46B-40A1-86D8-AEA15CEECB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08226B18-B46B-40A1-86D8-AEA15CEECB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08226B18-B46B-40A1-86D8-AEA15CEECB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08226B18-B46B-40A1-86D8-AEA15CEECB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F688DD2-251F-463A-B09C-32873742F483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F688DD2-251F-463A-B09C-32873742F483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F688DD2-251F-463A-B09C-32873742F483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F688DD2-251F-463A-B09C-32873742F483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
