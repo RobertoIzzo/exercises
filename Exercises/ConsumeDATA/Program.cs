@@ -97,6 +97,8 @@ namespace ConsumeDATA
         //ADO net appling connection pooling
         static void Connect(string connectionstring)
         {
+            //GUIDA TRANSACTION
+            //https://msdn.microsoft.com/en-us/library/ms973865.aspx
             using (TransactionScope scope = new TransactionScope())
             {
                 try
