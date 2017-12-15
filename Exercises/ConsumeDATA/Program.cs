@@ -43,7 +43,17 @@ namespace ConsumeDATA
 
         private static void ConnectOrm()
         {
-            using (TransactionScope scope = new TransactionScope())
+            /*
+            it depends on the scope option you start the nested transaction scope with.
+            If you use the default option TransactionScopeOption.Required  
+            then the nested scope will enlist in the same transaction as the outer scope and as such when the outer scope rolls back the inner scope will also be rolled back even if it has called Complete.
+            If, however, you use TransactionScopeOption.RequiresNew 
+            then the nested scope will begin its own transaction and complete it separately from the outer scope, so it will not roll back even if the outer scope rolls back.
+            If you use TransactionScopeOption.Suppress 
+             then the nested scope will not take part in the outer transaction and will complete non-transactionally, thus does not form part of the work that would be rolled back if the outer transaction rolls back.
+            
+            */
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
             {
                 try
                 {
