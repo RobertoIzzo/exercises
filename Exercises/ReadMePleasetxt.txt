@@ -1,4 +1,12 @@
-                                             C A S  - (Code Access Security)
+																C#
+Guida c#
+https://docs.microsoft.com/it-it/dotnet/csharp/index
+parole chiave c#
+https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
+			 
+			 
+			 
+			                                 C A S  - (Code Access Security)
 
 -https://en.wikipedia.org/wiki/Code_Access_Security
 -https://docs.microsoft.com/en-us/dotnet/framework/misc/code-access-security-basics
