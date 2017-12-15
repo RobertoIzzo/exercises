@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,41 +20,78 @@ namespace ConsumeDATA
     //orm impedance mismatch
     class Program
     {
-        static string connectionstring = "";
 
         static void Main(string[] args)
         {
-            #region ado
-            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
-            Connect(connection);
-
-            #endregion
-
-            #region orm
-            try
-            {
-                //mi crea un db ConsumeDATA.dbrobContext (progetto.nomeClasseContext
-                //e una tabella Users (plurale)
-                using (dbrobContext ctx = new dbrobContext())
-                {
-                    ctx.User.Add(new User() { Name = "TetsEntity" });
-                    ctx.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            #endregion
-
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
             
+            //Connect(connectionString);
+
+            Connect1(connectionString);
+
+            //ConnectOrm();
+          
+
             //WCF
-            
+
             //XML AND JSON
 
 
             Console.WriteLine("fine");
             Console.ReadLine();
+        }
+
+        private static void ConnectOrm()
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                try
+                {
+                    //mi crea un db ConsumeDATA.dbrobContext (progetto.nomeClasseContext
+                    //e una tabella Users (plurale)
+                    using (dbrobContext ctx = new dbrobContext())
+                    {
+                        ctx.User.Add(new User() { Name = "Rob" });
+                        ctx.SaveChanges();
+                        scope.Complete();//commit
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //implicity rollback
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private static void Connect1(string connectionString)
+        {
+            using (SqlConnection connection1 = new SqlConnection(connectionString))
+            {
+                connection1.Open();
+                SqlTransaction transaction = connection1.BeginTransaction();
+
+                try
+                {
+                    string queryInsert1 = @"insert into  Users (Name) values (@nome)";
+                    SqlCommand command = new SqlCommand(queryInsert1);
+                    command.Connection = connection1;
+                    command.Parameters.AddWithValue("@nome", "test2");
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+                    throw new Exception();
+                    transaction.Commit();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    transaction.Rollback();
+                }
+                finally
+                {
+                    connection1.Close();
+                }
+            }
         }
 
         //ADO net appling connection pooling
@@ -100,8 +138,8 @@ namespace ConsumeDATA
                         command2.Parameters.AddWithValue("@nome", "mimmo");
                         command2.Connection = connection;
                         command2.ExecuteNonQuery();
+                        scope.Complete();//commit
                     }
-                    scope.Complete();//commit
                 }
                 catch (Exception ex)
                 {
@@ -124,10 +162,10 @@ namespace ConsumeDATA
         : base("name=MyDB")
         {
         }
-       
+
         public IDbSet<User> User { get; set; }
     }
 
 
-   
+
 }
