@@ -84,7 +84,7 @@ namespace LinqEx
 
             Console.WriteLine("average = " + average);
 
-
+            //grouping and projecton
             var resultd = from o in orders
                           from ol in o.OrderLines
                           group ol by ol.Product
@@ -97,6 +97,17 @@ namespace LinqEx
             foreach (var item in resultd)
             {
                 Console.WriteLine(item.dsc);
+            }
+
+            string[] dataw = { "roberto", "massimo", "francesco" };
+            string[] datae = {"roberto","massimo" };
+
+            var joinresut = from s in dataw
+                join s1 in datae on s equals s1
+                select s;
+            foreach (var item in joinresut)
+            {
+                Console.WriteLine("join=>"+item);
             }
 
             #endregion
@@ -127,6 +138,7 @@ namespace LinqEx
 
 
             #endregion
+
 
 
             Console.ReadLine();

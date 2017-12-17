@@ -11,6 +11,7 @@ namespace CollectionEx
         static void Main(string[] args)
         {
             //arrays
+
             //list
             //dictionary
             //sets
