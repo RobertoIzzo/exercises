@@ -36,13 +36,14 @@ namespace Task1
                 throw new Exception();
             });
 
-            var ok = t6.ContinueWith((i) =>
+            Task task = t6.ContinueWith((i) =>
             {
                 Console.WriteLine("Faulted" + i.Exception);
             }, TaskContinuationOptions.OnlyOnFaulted);
 
 
-            ok.Wait();
+            task.Wait();
+           
 
             //child task
             Task<int[]> parentTask = new Task<int[]>(() =>

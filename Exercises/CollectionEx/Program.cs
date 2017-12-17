@@ -12,9 +12,13 @@ namespace CollectionEx
         {
             //arrays
 
+            //faster find element but not duplicate
             //list
             //dictionary
+            
             //sets
+            
+
             //queue
             //stacks
 

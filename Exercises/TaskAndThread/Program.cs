@@ -21,7 +21,7 @@ namespace TaskAndThread
             t1.Join();
             Console.WriteLine("hello from main");
 
-            //se non metto t.wait oppure t.result  NON ASPETTA != SEC !!!!
+            //se non metto t.wait oppure t.result  NON ASPETTA 10 SEC !!!!
             //Tasks are executed by threads which
             //are coming from the system thread pool.
             //A thread that comes from thread pool is executed in background by default.!!!
