@@ -11,6 +11,7 @@ namespace ConsoleApplication3
     {
         //ThreadLocal inizializza sempre dal valore che gli dai
         //per ogni thread _count inizia da 5
+        //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count =
         new ThreadLocal<int>(() => 5);
 
