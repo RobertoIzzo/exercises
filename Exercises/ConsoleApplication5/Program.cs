@@ -11,6 +11,7 @@ namespace ConsoleApplication5
     {
         //ThreadStatic inizializza da 5 il primo thread , l'altro invece inizializza 
         //da valore di default
+        //la variabile è statica per ogni thread
         static bool basta = false;
         [ThreadStatic]
         private static int _count = 5;
