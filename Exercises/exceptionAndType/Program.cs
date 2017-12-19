@@ -59,7 +59,7 @@ namespace exceptionAndType
             t.DoSomething(1, 2);
             var fielfStatic = Test.FieldStatic;
 
-            //String is array of char .Is refernce tyope but use = != like value type check value not refernxe.Is immutable.
+            //String is array of char .Is refernce type but use = != like value type check value not refernxe.Is immutable.
             //every change create new string
             //string, string builder, index of startwith, CultureInfo .save data in insensitive cultureinfo in database and after formatting 
             //in a way of user
@@ -256,6 +256,10 @@ namespace exceptionAndType
     }
 
     //Generics Interface
+    interface IGenericInter<T>
+    {
+        T GetIt(T arg);
+    }
 
     //interface covariant
     interface IInterface1<out T> where T : class
@@ -292,32 +296,7 @@ namespace exceptionAndType
         public T MyProperty { get; set; }
     }
 
-    //Generics Nullable
-    struct Nullable<T> where T : struct
-    {
-        private T _value;
-        private bool _hasValue;
-
-        public Nullable(T value)
-        {
-            _value = value;
-            _hasValue = true;
-        }
-
-        public T Value
-        {
-            get
-            {
-                if (!_hasValue) throw new ArgumentException();
-                return _value;
-            }
-        }
-
-        public T GetValueOrDefault()
-        {
-            return _value;
-        }
-    }
+    
 
     //extension
     public static class MyExtension
@@ -327,12 +306,6 @@ namespace exceptionAndType
             return arg.ToLower();
         }
     }
-
-
-    //Interface
-
-    //Abstract
-
 
     //Inheritance 
     public class Animale
@@ -518,6 +491,34 @@ namespace exceptionAndType
            : base(message, inException)
         {
 
+        }
+    }
+
+
+    //Generics Nullable
+    struct Nullable<T> where T : struct
+    {
+        private T _value;
+        private bool _hasValue;
+
+        public Nullable(T value)
+        {
+            _value = value;
+            _hasValue = true;
+        }
+
+        public T Value
+        {
+            get
+            {
+                if (!_hasValue) throw new ArgumentException();
+                return _value;
+            }
+        }
+
+        public T GetValueOrDefault()
+        {
+            return _value;
         }
     }
 }

@@ -227,11 +227,7 @@ namespace TypePart2
         }
     }
 
-    interface IGenericInter<T>
-    {
-        T GetIt(T arg);
-    }
-
+   
     interface IInterface
     {
         int Count { get; set; }
@@ -248,7 +244,7 @@ namespace TypePart2
         void Move();
     }
 
-    public class Test1 : IRight, ILeft, IInterface, IGenericInter<Test>
+    public class Test1 : IRight, ILeft, IInterface
     {
         private Test1()
         {

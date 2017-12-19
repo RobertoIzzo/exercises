@@ -29,8 +29,6 @@ namespace plink
                 Console.WriteLine(item); 
             }
             //aggregate exception
-
-
             var agg = Enumerable.Range(0, 10);
             try
             {
@@ -39,7 +37,6 @@ namespace plink
             }
             catch (AggregateException ae)
             {
-
                 Console.WriteLine("ex : {0}" ,ae.InnerExceptions.Count);
             }
 
