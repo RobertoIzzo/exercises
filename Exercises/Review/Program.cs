@@ -12,8 +12,12 @@ namespace Review
 {
     class Program
     {
+
+        delegate T1 TestDelegate<in T, T1>(T arg, T1 arg1);
+
         //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count = new ThreadLocal<int>(() => 5);
+
 
         [ThreadStatic]
         private static int _count1 = 5;
@@ -222,11 +226,13 @@ namespace Review
             #endregion // end of MyRegion
 
             #region TODO
+            //reflection
             //plinq and Concurrent collection
             //async await
             //garbage collector
             //dynamic
             //IComparable
+            //IComparer
             //IEnumerable
             //IDisposable
             //IUnknown
@@ -314,7 +320,8 @@ namespace Review
             Myclass1<string> testMyclass2 = new Myclass1<string>();
             var result2 = testMyclass2.Compare("ciao", "ciao");
 
-            //todo class interface generic, delegate ,reflection and much more...
+            Test0 tt = new Test0();
+            TestDelegate<Padre> myDelegate = tt.Method;
 
             Console.ReadLine();
         }
@@ -394,12 +401,12 @@ namespace Review
         T MyGenericMethod(T1 value);
     }
 
-    //generic class
-    /*
+    /*generic class
+    https://www.codeproject.com/articles/72467/c-4-0-covariance-and-contravariance-in-generics
     In type theory, a the type T is greater (>) than type S if S is a subtype (derives from) T, 
     which means that there is a quantitative description for types in a type hierarchy.
 
-        n C# (and .NET), variance is a relation between a generic type definition and a particular generic type parameter.
+    In C# , variance is a relation between a generic type definition and a particular generic type parameter.
 
     Given two types Base and Derived, such that:
 
@@ -414,6 +421,43 @@ namespace Review
     Generic<Base> ≤ Generic<Derived>.
     
     -invariant in T if neither of the above apply.
+
+    il delegate non deve rispettare esattamente la firma del metodo.
+                                                    
+    covariance(out) : il metodo può avere nel valore di ritorno la classe più derivata di quella definita nel delegate 
+    controvariance (in) : il metodo può avere nei parametri la classe meno derivata di quella definita nel delegate 
+    
+    In C#, covarianza e controvarianza abilitano la conversione implicita del riferimento per i tipi di matrice, i tipi delegati e
+    gli argomenti di tipo generico. 
+    La covarianza mantiene la compatibilità dell'assegnazione e la controvarianza la inverte.
+    
+    covariant out
+        delegate<padre> mydel
+          
+        figlio mymethod(){}
+        mydel =mymethod    (implicitamente faccio cast da figlio a padre) prima assegno padre poi figlio
+
+    controvarant in
+        delegate<figlio> mydel
+          
+        void mymethod(padre){}
+        mydel =mymethod    (implicitamente faccio cast da padre a figlio) prima assegno figlio poi padre
+
+        class padre{}
+        class figlio :padre{}
+                                                Summary        
+                    
+   1) Variance in relation to generic type parameters is restricted to generic interface and generic delegate type definitions.
+   
+   2)A generic interface or generic delegate type definition can be covariant, contravariant or invariant 
+   in relation to different generic type parameters.
+   
+   3)Variance applies only to reference types: a IEnumerable<int> is not an IEnumerable<object>.
+   
+   4)Variance does not apply to delegate combination. That is, given two delegates of types Action<Derived> and Action<Base>, 
+   you cannot combine the second delegate with the first although the result would be type safe.
+   Variance allows the second delegate to be assigned to a variable of type Action<Derived>, 
+   but delegates can combine only if their types match exactly.
     */
     class Myclass3<T, T1>
     {
@@ -712,7 +756,19 @@ namespace Review
         }
     }
 
-  
+    public class Padre { }
+    public class Figlio : Padre { }
+
+    public class Test0
+    {
+        public T Method<T>(T arg) where T : class, new()
+        {
+            Console.WriteLine("method");
+            T t = new T();
+
+            return t;
+        }
+    }
 
     //Value type
     public struct Point
