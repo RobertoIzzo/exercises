@@ -242,7 +242,10 @@ namespace Review
             //IUnknown
             //IFormattable
             //IFormatProvider 
-
+            // Il termine serializzazione indica il processo di conversione di un oggetto in un flusso di byte allo scopo di 
+             //   archiviare tale oggetto o trasmetterlo alla memoria, a un database o a un file.
+            //    Il fine principale della serializzazione è salvare lo stato di un oggetto per consentirne la ricreazione 
+            //    in caso di necessità. Il processo inverso è denominato deserializzazione
             #endregion // end of MyRegion
 
             #region Exception
