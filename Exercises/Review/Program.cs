@@ -407,6 +407,11 @@ namespace Review
 
     /*generic class
     https://www.codeproject.com/articles/72467/c-4-0-covariance-and-contravariance-in-generics
+    In .NET framework 3.5 è stato introdotto il supporto della varianza per la corrispondenza delle firme del metodo 
+    con i tipi di delegati in tutti i delegati in C#. Ciò significa che è possibile assegnare ai delegati 
+    non solo i metodi con firme corrispondenti, ma anche i metodi che restituiscono più tipi derivati (covarianza) 
+    o accettano parametri con meno tipi derivati (controvarianza) rispetto a quelli specificati dal tipo di delegato.
+    Sono inclusi sia i delegati generici che quelli non generici
     In type theory, a the type T is greater (>) than type S if S is a subtype (derives from) T, 
     which means that there is a quantitative description for types in a type hierarchy.
 
