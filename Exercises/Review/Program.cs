@@ -307,7 +307,14 @@ namespace Review
             var res5 = MyConvert<DateTime>("2017/12/19");
             #endregion // end of MyRegion
 
-            //todo class interface generic, delegate and much more...
+            Myclass1<string> testMyclass = new Myclass1<string>();
+            var result =testMyclass.Compare("ciao", "cia");
+            Myclass1<int> testMyclass1 = new Myclass1<int>();
+            var result1 = testMyclass1.Compare(3, 4);
+            Myclass1<string> testMyclass2 = new Myclass1<string>();
+            var result2 = testMyclass2.Compare("ciao", "ciao");
+
+            //todo class interface generic, delegate ,reflection and much more...
 
             Console.ReadLine();
         }
@@ -379,6 +386,72 @@ namespace Review
 
         }
        
+    }
+
+    //interface  covariant / controvariant
+    interface IInterface3<out T, in T1> where T : class
+    {
+        T MyGenericMethod(T1 value);
+    }
+
+    //generic class
+    /*
+    In type theory, a the type T is greater (>) than type S if S is a subtype (derives from) T, 
+    which means that there is a quantitative description for types in a type hierarchy.
+
+        n C# (and .NET), variance is a relation between a generic type definition and a particular generic type parameter.
+
+    Given two types Base and Derived, such that:
+
+    There is a reference (or identity) conversion between Base and Derived
+    Base ≥ Derived
+    A generic type definition Generic<T> is:
+
+    -covariant in T if the ordering of the constructed types follows the ordering of the generic type parameters: 
+    Generic<Base> ≥ Generic<Derived>.
+    
+    -contravariant in T if the ordering of the constructed types is reversed from the ordering of the generic type parameters: 
+    Generic<Base> ≤ Generic<Derived>.
+    
+    -invariant in T if neither of the above apply.
+    */
+    class Myclass3<T, T1>
+    {
+        public T MyProperty { get; set; }
+
+        public T1 Test(T t1, T t2)
+        {
+            return default(T1);
+        }
+    }
+
+    class Myclass1<T> 
+    {
+        public T MyProperty { get; set; }
+
+        public bool Compare(T t1, T t2)
+        {
+            return (t1.Equals(t2));
+        }
+    }
+
+
+    class Myclass<T> where T : class, new()
+    {
+        public Myclass()
+        {
+            MyProperty = new T();
+        }
+
+        public T MyProperty { get; set; }
+    }
+
+    class Myclass2
+    {
+        public bool Compare<T>(T t1, T t2)
+        {
+            return (t1.Equals(t2));
+        }
     }
 
 
@@ -639,23 +712,7 @@ namespace Review
         }
     }
 
-    //interface  covariant / controvariant
-    interface IInterface3<out T, in T1> where T : class
-    {
-        T MyGenericMethod(T1 value);
-    }
-
-
-    //generic class
-    class Myclass<T> where T : class, new()
-    {
-        public Myclass()
-        {
-            MyProperty = new T();
-        }
-
-        public T MyProperty { get; set; }
-    }
+  
 
     //Value type
     public struct Point
