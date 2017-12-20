@@ -273,6 +273,7 @@ namespace Review
             #region Generics Method
             /*
              * https://docs.microsoft.com/it-it/dotnet/csharp/programming-guide/generics/
+             https://docs.microsoft.com/it-it/dotnet/csharp/programming-guide/concepts/covariance-contravariance/variance-in-delegates
             I generics sono stati aggiunti alla versione 2.0 del linguaggio C# e di Common Language Runtime (CLR).
             I generics introducono in .NET Framework il concetto dei parametri di tipo, che consentono di progettare classi e metodi 
             che rinviano la specifica di uno o più tipi finché non si dichiara la classe o il metodo e si crea un'istanza dal codice client. 
