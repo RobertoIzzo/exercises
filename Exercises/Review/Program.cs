@@ -13,7 +13,11 @@ namespace Review
     class Program
     {
 
-        delegate T1 TestDelegate<in T, T1>(T arg, T1 arg1);
+        delegate T1 TestDelegate<in T, out T1>(T arg);
+        delegate T1 TestDelegate1<in T, T1>(T arg, T1 arg1);
+        delegate T1 TestDelegate2<out T1>();
+        delegate void TestDelegate3<in T>(T arg);
+        delegate void TestDelegate4<in T, in T1>(T arg, T1 arg1);
 
         //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count = new ThreadLocal<int>(() => 5);
