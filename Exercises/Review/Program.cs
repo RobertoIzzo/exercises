@@ -13,11 +13,11 @@ namespace Review
     class Program
     {
 
-        delegate T1 TestDelegate<in T, out T1>(T arg);
-        delegate T1 TestDelegate1<in T, T1>(T arg, T1 arg1);
-        delegate T1 TestDelegate2<out T1>();
-        delegate void TestDelegate3<in T>(T arg);
-        delegate void TestDelegate4<in T, in T1>(T arg, T1 arg1);
+        delegate T1 TypeDelegate<in T, out T1>(T arg);
+        delegate T1 TypeDelegate1<in T, T1>(T arg, T1 arg1);
+        public   delegate T1 TypeDelegate2<out T1>();
+        delegate void TypeDelegate3<in T>(T arg);
+        delegate void TypeDelegate4<in T, in T1>(T arg, T1 arg1);
 
         //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count = new ThreadLocal<int>(() => 5);
@@ -330,7 +330,7 @@ namespace Review
             var result2 = testMyclass2.Compare("ciao", "ciao");
 
             Test0 tt = new Test0();
-            TestDelegate<Padre> TestDelegate2 = tt.Method;
+            TypeDelegate<Padre> TestDelegate2 = tt.Method;
 
             Console.ReadLine();
         }
@@ -404,6 +404,29 @@ namespace Review
         }
        
     }
+
+    //metodi generici che prendono delegate generico
+    public class Test0
+    {
+        public T1 Method<T, T1>(T arg)
+            where T : class, new()
+            where T1 : class, new()
+        {
+            Console.WriteLine("method");
+            T1 t = new T1();
+
+            return t;
+        }
+
+        private T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> arg, T arg1)
+            where T1 : class, new()
+            where T : class, new()
+        {
+            return default(T);
+        }
+    }
+
+
 
     //interface  covariant / controvariant
     interface IInterface3<out T, in T1> where T : class
@@ -774,16 +797,8 @@ namespace Review
     public class Padre { }
     public class Figlio : Padre { }
 
-    public class Test0
-    {
-        public T Method<T>(T arg) where T : class, new()
-        {
-            Console.WriteLine("method");
-            T t = new T();
+   
 
-            return t;
-        }
-    }
 
     //Value type
     public struct Point
