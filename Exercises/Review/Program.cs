@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Review
 {
-    class Program
+    public class Program
     {
 
         delegate T1 TypeDelegate<in T, out T1>(T arg);
@@ -330,9 +330,8 @@ namespace Review
             var result2 = testMyclass2.Compare("ciao", "ciao");
 
             Test0 tt = new Test0();
-            TypeDelegate<Padre,Figlio> testDelegate2 = tt.Method<Padre, Figlio>;
-            var result1 = testDelegate2;
-
+            TypeDelegate2<Padre> testDelegate1 = tt.Method<Padre>;
+            //passare una funzione ad una funzione
 
             Console.ReadLine();
         }
@@ -410,17 +409,14 @@ namespace Review
     //metodi generici che prendono delegate generico
     public class Test0
     {
-        public Figlio Method<T, T1>(Padre padre)
-            where T : class, new()
+        public T1 Method<T1>()
             where T1 : class, new()
         {
-            Console.WriteLine("method");
             T1 t = new T1();
-
             return t;
         }
 
-        private T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> arg, T arg1)
+        public T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> arg, T arg1)
             where T1 : class, new()
             where T : class, new()
         {
