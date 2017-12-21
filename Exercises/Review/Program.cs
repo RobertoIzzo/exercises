@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
@@ -12,9 +13,16 @@ using System.Threading.Tasks;
 
 namespace Review
 {
+    /*
+    * https://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep
+    *  1. Encapsulation
+    *  2. Abstraction
+    *  3. Inheritance
+    *  4. Polymorphism.
+    * association, aggregation, and composition.
+    */
     public class Program
     {
-
         delegate T1 TypeDelegate<in T, out T1>(T arg);
         delegate T1 TypeDelegate1<in T, T1>(T arg, T1 arg1);
         public   delegate T1 TypeDelegate2<out T1>();
@@ -233,7 +241,6 @@ namespace Review
 
             #region TODO
             //expression tree Expression<Func<int, bool>> lambda = num => num < 5;      
-            //reflection
             //plinq and Concurrent collection
             //async await
             //garbage collector
@@ -246,7 +253,7 @@ namespace Review
             //IFormattable
             //IFormatProvider 
             // Il termine serializzazione indica il processo di conversione di un oggetto in un flusso di byte allo scopo di 
-             //   archiviare tale oggetto o trasmetterlo alla memoria, a un database o a un file.
+            //   archiviare tale oggetto o trasmetterlo alla memoria, a un database o a un file.
             //    Il fine principale della serializzazione è salvare lo stato di un oggetto per consentirne la ricreazione 
             //    in caso di necessità. Il processo inverso è denominato deserializzazione
             #endregion // end of MyRegion
@@ -274,6 +281,52 @@ namespace Review
                 Console.WriteLine("Importance : " + value.ToString().GetLower());
             }
 
+            #endregion // end of MyRegion
+
+            #region Reflection
+            //vedere reflectionDemo e Plugin
+            int ii = 5;
+            Type type1 = ii.GetType();
+            Type typey = typeof(Pippo1);
+            #endregion // end of MyRegion
+
+            #region Attribute
+            /*Attribute is one of METADATA
+            Predefined Attributes
+            The .Net Framework provides three pre-defined attributes :
+            - AttributeUsage
+            - Conditional
+            - Obsolete
+             */
+
+            Type type = typeof(Pippo1);
+            //iterating through the attribtues of the Rectangle class
+            foreach (Object attributes in type.GetCustomAttributes(false))
+            {
+                DeBugInfo dbi = (DeBugInfo)attributes;
+
+                if (null != dbi)
+                {
+                    Console.WriteLine("Developer: {0}", dbi.Developer);
+                    Console.WriteLine("Remarks: {0}", dbi.Message);
+                }
+            }
+
+            //iterating through the method attribtues
+            foreach (MethodInfo m in type.GetMethods())
+            {
+
+                foreach (Attribute a in m.GetCustomAttributes(true))
+                {
+                    DeBugInfo dbi = (DeBugInfo)a;
+
+                    if (null != dbi)
+                    {
+                        Console.WriteLine("Developer: {0}", dbi.Developer);
+                        Console.WriteLine("Remarks: {0}", dbi.Message);
+                    }
+                }
+            }
             #endregion // end of MyRegion
 
             #region Generics Method
@@ -324,8 +377,9 @@ namespace Review
             var res5 = MyConvert<DateTime>("2017/12/19");
             #endregion // end of MyRegion
 
+            #region Generics delegate
             Myclass1<string> testMyclass = new Myclass1<string>();
-            var result =testMyclass.Compare("ciao", "cia");
+            var result = testMyclass.Compare("ciao", "cia");
             Myclass1<int> testMyclass1 = new Myclass1<int>();
             var result1 = testMyclass1.Compare(3, 4);
             Myclass1<string> testMyclass2 = new Myclass1<string>();
@@ -334,28 +388,39 @@ namespace Review
             Test0 tt = new Test0();
             TypeDelegate2<Padre> testDelegate1 = tt.Method<Padre>;
             //passare una funzione ad una funzione
+#pragma warning disable 618
             string risultatoX = tt.RunTheMethod(method2, "");
+#pragma warning restore 618
             string risultatoY = tt.RunTheMethod(delegate { return ""; }, "");
             string risultato0 = tt.RunTheMethod(() => { return ""; }, "");
-            string risultato1 = tt.RunTheMethod(() =>"", "");
+            string risultato1 = tt.RunTheMethod(() => "", "");
 
-            // Imports the configuration from another registry into this registry.
+            //esempio di un metodo generico con constraint e una lisat di action<T>
+            //che viene aggiunta utilizando una Action di tipo PluginGraph e il metodo assegnato con lambda che utilizza Activator per istnziare il plugin
+
             //public void IncludeRegistry<T>() where T : Registry, new()
             //{
+            //   Imports the configuration from another registry into this registry.
             //    this._actions.Add((Action<PluginGraph>)(g => Activator.CreateInstance<T>().ConfigurePluginGraph(g)));
             //}
-                // <summary>
-                // Expression Builder used to define policies for a PluginType including
-                // Scoping, the Default Instance, and interception.  BuildInstancesOf()
-                // and ForRequestedType() are synonyms
-                // <typeparam name="PLUGINTYPE"></typeparam>
-            //    [Obsolete("Change to For<T>()")]
-            //public CreatePluginFamilyExpression<PLUGINTYPE> BuildInstancesOf<PLUGINTYPE>()
-            //{
-            //    return new CreatePluginFamilyExpression<PLUGINTYPE>(this);
-            //}
 
-        Console.ReadLine();
+            #endregion // end of MyRegion
+
+
+            Child c1 = new Child();
+            c1.DoSomeVirtual();
+            c1.DoSome(1);
+
+            //uso implementazione di Child di DoSomeVirtual
+            ABase b1 = new Child();
+            b1.DoSomeVirtual();
+
+
+            //ho solo il metodo di IIPippo
+            IIPippo p1 = new Child();
+            p1.Dodo();
+
+            Console.ReadLine();
         }
 
         public static string method2()
@@ -436,13 +501,19 @@ namespace Review
     //metodi generici che prendono delegate generico
     public class Test0
     {
-        public T1 Method<T1>()
-            where T1 : class, new()
+        /// <summary>
+        /// i parametri di tipo possono aver nomi liberi
+        /// </summary>
+        /// <typeparam name="MYPARAM"></typeparam>
+        /// <returns></returns>
+        public MYPARAM Method<MYPARAM>()
+            where MYPARAM : class, new()
         {
-            T1 t = new T1();
+            MYPARAM t = new MYPARAM();
             return t;
         }
 
+        [Obsolete("Change to Method()")]
         public T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> callback, T arg1)
             where T1 : class
             where T  : class
@@ -452,7 +523,6 @@ namespace Review
         }
 
     }
-
 
 
     //interface  covariant / controvariant
@@ -707,20 +777,6 @@ namespace Review
         //}
     }
 
-    public class Pippo1
-    {
-        public static void Message(string msg)
-        {
-            Console.WriteLine(msg);
-        }
-
-
-        public static void OldMethod(string msg)
-        {
-            Console.WriteLine(msg);
-        }
-    }
-
     interface IRight
     {
         void Move();
@@ -822,9 +878,8 @@ namespace Review
     }
 
     public class Padre { }
-    public class Figlio : Padre { }
 
-   
+    public class Figlio : Padre { }
 
 
     //Value type
@@ -836,6 +891,57 @@ namespace Review
         {
             x = p1;
             y = p2;
+        }
+    }
+
+    [DeBugInfo("Rob", Message = "Return type mismatch")]
+    public class Pippo1
+    {
+        [Conditional("DEBUG")]
+        public static void Message(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
+
+        [Obsolete("Don't use OldMethod, use NewMethod instead", true)]
+        public static void OldMethod(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Class |
+    AttributeTargets.Constructor |
+    AttributeTargets.Field |
+    AttributeTargets.Method |
+    AttributeTargets.Property,
+    AllowMultiple = true)]
+    public class DeBugInfo : System.Attribute
+    {
+        public string message;
+        private string developer;
+        public string Message
+        {
+            get
+            {
+                return message;
+            }
+            set
+            {
+                message = value;
+            }
+        }
+        public string Developer
+        {
+            get
+            {
+                return developer;
+            }
+        }
+        public DeBugInfo(string dev)
+        {
+            this.developer = dev;
         }
     }
 }
