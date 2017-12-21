@@ -338,7 +338,15 @@ namespace Review
             string risultatoY = tt.RunTheMethod(delegate { return ""; }, "");
             string risultato0 = tt.RunTheMethod(() => { return ""; }, "");
             string risultato1 = tt.RunTheMethod(() =>"", "");
-            Console.ReadLine();
+
+            // Imports the configuration from another registry into this registry.
+            //public void IncludeRegistry<T>() where T : Registry, new()
+            //{
+            //    this._actions.Add((Action<PluginGraph>)(g => Activator.CreateInstance<T>().ConfigurePluginGraph(g)));
+            //}
+
+
+        Console.ReadLine();
         }
 
         public static string method2()
