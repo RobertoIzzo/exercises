@@ -344,7 +344,16 @@ namespace Review
             //{
             //    this._actions.Add((Action<PluginGraph>)(g => Activator.CreateInstance<T>().ConfigurePluginGraph(g)));
             //}
-
+                // <summary>
+                // Expression Builder used to define policies for a PluginType including
+                // Scoping, the Default Instance, and interception.  BuildInstancesOf()
+                // and ForRequestedType() are synonyms
+                // <typeparam name="PLUGINTYPE"></typeparam>
+            //    [Obsolete("Change to For<T>()")]
+            //public CreatePluginFamilyExpression<PLUGINTYPE> BuildInstancesOf<PLUGINTYPE>()
+            //{
+            //    return new CreatePluginFamilyExpression<PLUGINTYPE>(this);
+            //}
 
         Console.ReadLine();
         }
