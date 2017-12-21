@@ -426,12 +426,14 @@ namespace Review
             return t;
         }
 
-        public T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> arg, T arg1)
+        public T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> callback, T arg1)
             where T1 : class
-            where T : class
+            where T  : class
         {
+            callback();
             return default(T);
         }
+
     }
 
 
