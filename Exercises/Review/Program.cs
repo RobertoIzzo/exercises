@@ -334,8 +334,10 @@ namespace Review
             Test0 tt = new Test0();
             TypeDelegate2<Padre> testDelegate1 = tt.Method<Padre>;
             //passare una funzione ad una funzione
-            string risultato = tt.RunTheMethod(method2, "");
-
+            string risultatoX = tt.RunTheMethod(method2, "");
+            string risultatoY = tt.RunTheMethod(delegate { return ""; }, "");
+            string risultato0 = tt.RunTheMethod(() => { return ""; }, "");
+            string risultato1 = tt.RunTheMethod(() =>"", "");
             Console.ReadLine();
         }
 
