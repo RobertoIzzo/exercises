@@ -330,7 +330,9 @@ namespace Review
             var result2 = testMyclass2.Compare("ciao", "ciao");
 
             Test0 tt = new Test0();
-            TypeDelegate<Padre> TestDelegate2 = tt.Method;
+            TypeDelegate<Padre,Figlio> testDelegate2 = tt.Method<Padre, Figlio>;
+            var result1 = testDelegate2;
+
 
             Console.ReadLine();
         }
@@ -408,7 +410,7 @@ namespace Review
     //metodi generici che prendono delegate generico
     public class Test0
     {
-        public T1 Method<T, T1>(T arg)
+        public Figlio Method<T, T1>(Padre padre)
             where T : class, new()
             where T1 : class, new()
         {
