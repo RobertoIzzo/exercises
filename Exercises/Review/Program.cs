@@ -330,10 +330,11 @@ namespace Review
             var result2 = testMyclass2.Compare("ciao", "ciao");
 
             Test0 tt = new Test0();
-            TestDelegate<Padre> myDelegate = tt.Method;
+            TestDelegate<Padre> TestDelegate2 = tt.Method;
 
             Console.ReadLine();
         }
+
         public static T GetData<T>(T obj)
         {
             T result;
