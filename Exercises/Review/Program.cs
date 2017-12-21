@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -332,8 +334,14 @@ namespace Review
             Test0 tt = new Test0();
             TypeDelegate2<Padre> testDelegate1 = tt.Method<Padre>;
             //passare una funzione ad una funzione
+            string risultato = tt.RunTheMethod(method2, "");
 
             Console.ReadLine();
+        }
+
+        public static string method2()
+        {
+            return "";
         }
 
         public static T GetData<T>(T obj)
@@ -417,8 +425,8 @@ namespace Review
         }
 
         public T RunTheMethod<T, T1>(Program.TypeDelegate2<T1> arg, T arg1)
-            where T1 : class, new()
-            where T : class, new()
+            where T1 : class
+            where T : class
         {
             return default(T);
         }
