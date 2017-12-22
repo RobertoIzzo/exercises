@@ -3,9 +3,14 @@ Guida c#
 https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
-			 
-			 
-			 
+
+											A P P   D O M A I N
+
+https://msdn.microsoft.com/en-us/library/cxk374d9.aspx			 
+Operating systems and runtime environments typically provide some form of isolation between applications. For example, Windows uses processes to isolate applications. This isolation is necessary to ensure that code running in one application cannot adversely affect other, unrelated applications.
+
+Application domains provide an isolation boundary for security, reliability, and versioning, and for unloading assemblies. Application domains are typically created by runtime hosts, which are responsible for bootstrapping the common language runtime before an application is run.
+use application domains to provide isolation between assemblies.			 
 			                                 C A S  - (Code Access Security)
 
 -https://en.wikipedia.org/wiki/Code_Access_Security

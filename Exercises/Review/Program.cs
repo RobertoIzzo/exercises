@@ -43,7 +43,6 @@ namespace Review
         private static int _count1 = 5;
         static void Main(string[] args)
         {
-            Console.WriteLine("inizio");
 
             #region Cancellation token
             CancellationTokenSource cts = new CancellationTokenSource();
@@ -829,6 +828,7 @@ namespace Review
         void Dodo();
     }
 
+    //classi astratte
     public abstract class ABase
     {
         private int field = 0;
@@ -865,6 +865,8 @@ namespace Review
         {
             Console.WriteLine("Child");
         }
+
+        //interfaccia esplicita
 
         void ILeft.Move()
         {
