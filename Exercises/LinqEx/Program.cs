@@ -22,7 +22,7 @@ namespace LinqEx
 
             //obj initialization sintax new myobj{filed= val}
 
-            //lambda expression (short for anonymous function
+            //lambda expression (short for anonymous function)
             Func<int, string> pippo = x => "";
 
             //delegate
@@ -124,8 +124,8 @@ namespace LinqEx
              * Il tipo restituito deve essere IEnumerable, IEnumerable<T>, IEnumerator o IEnumerator<T>.
             Yield keyword helps us to do custom stateful iteration over.NET collections.
             There are two scenarios where “yield” keyword is useful:-
-            Customized iteration through a collection without creating a temporary collection. (prendere elementi secondo una condizione senza la varibile temporanea
-            Stateful iteration. (ritorna al caller subito il promo item della lista
+            1Customized iteration through a collection without creating a temporary collection. (prendere elementi secondo una condizione senza la varibile temporanea
+            2Stateful iteration. (ritorna al caller subito il promo item della lista
             Con yield mi ritorna subito il primo risultato, posso farci , qualcosa e quando il foreach riprende il controllo riparte dal secondo
             */
             var resulta = FilterWithYield();
@@ -138,7 +138,6 @@ namespace LinqEx
 
 
             #endregion
-
 
 
             Console.ReadLine();

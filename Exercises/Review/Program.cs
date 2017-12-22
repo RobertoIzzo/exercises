@@ -23,6 +23,9 @@ namespace Review
     */
     public class Program
     {
+        private delegate Father covariance(int a, int b);
+        private delegate void controvariance(Son s);
+
         delegate T1 TypeDelegate<in T, out T1>(T arg);
         delegate T1 TypeDelegate1<in T, T1>(T arg, T1 arg1);
         public   delegate T1 TypeDelegate2<out T1>();
@@ -240,6 +243,7 @@ namespace Review
             #endregion // end of MyRegion
 
             #region TODO
+            //events
             //expression tree Expression<Func<int, bool>> lambda = num => num < 5;      
             //plinq and Concurrent collection
             //async await
@@ -252,10 +256,21 @@ namespace Review
             //IUnknown
             //IFormattable
             //IFormatProvider 
+            //I/O
+            //DEBUG
+            //dataaccess
+            //repositry
+            //linq
+
+          
+            #endregion // end of MyRegion
+
+            #region Serialization
             // Il termine serializzazione indica il processo di conversione di un oggetto in un flusso di byte allo scopo di 
             //   archiviare tale oggetto o trasmetterlo alla memoria, a un database o a un file.
             //    Il fine principale della serializzazione è salvare lo stato di un oggetto per consentirne la ricreazione 
             //    in caso di necessità. Il processo inverso è denominato deserializzazione
+
             #endregion // end of MyRegion
 
             #region Exception
@@ -378,6 +393,13 @@ namespace Review
             #endregion // end of MyRegion
 
             #region Generics delegate
+
+            //covariance il metodo può avere nel valore di ritorno la classe più derivata di quella definita nel delegate 
+            covariance cov = Covariancemethod;
+
+            //controvariance il metodo può avere nei parametri la classe meno derivata di quella definita nel delegate 
+            controvariance con = Controvariancemethod;
+
             Myclass1<string> testMyclass = new Myclass1<string>();
             var result = testMyclass.Compare("ciao", "cia");
             Myclass1<int> testMyclass1 = new Myclass1<int>();
@@ -421,6 +443,14 @@ namespace Review
             p1.Dodo();
 
             Console.ReadLine();
+        }
+        static Son Covariancemethod(int a, int b)
+        {
+            return new Son();
+        }
+
+        static void Controvariancemethod(Father f)
+        {
         }
 
         public static string method2()
@@ -677,11 +707,11 @@ namespace Review
         }
     }
 
-    public class Soon : Father
+    public class Son : Father
     {
         private int _filed2;
 
-        public Soon(int filed1, int field2)
+        public Son(int filed1, int field2)
             : base(filed1)
         {
             _filed2 = field2;

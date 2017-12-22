@@ -15,11 +15,10 @@ namespace ReflectionDemo
             //carico una dll 
             //questo progetto deve refernziare  Plugin
             Assembly pluginAssembly1 = Assembly.Load("Plugin");
-          
 
             var plugins1 = from type in pluginAssembly1.GetTypes()
-                          where typeof(Plugin.IPlugin).IsAssignableFrom(type) && !type.IsInterface
-                          select type;
+                           where typeof(Plugin.IPlugin).IsAssignableFrom(type) && !type.IsInterface
+                           select type;
 
             foreach (Type pluginType in plugins1)
             {
@@ -34,46 +33,20 @@ namespace ReflectionDemo
                         try
                         {
                             method.Invoke(plugin, new object[] { "ciao" });
-                            Console.WriteLine("ok "+method.Name);
+                            Console.WriteLine("ok " + method.Name);
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("fail"+method.Name);
+                            Console.WriteLine("fail" + method.Name);
                             Console.WriteLine(ex.Message);
-
                         }
                     }
                 }
             }
-
             Console.ReadLine();
         }
     }
-   }
+}
 
 
-//    public interface IPlugin
-//    {
-//        string Name { get;}
-//        string Dsc { get; }
-        
-//    }
 
-//    public class Plugin : IPlugin
-//    {
-//        public string Name
-//        {
-//            get { return "My Plugin"; } 
-//        }
-
-//        public string Dsc
-//        {
-//            get { return "plugin"; }
-//        }
-
-//        public void ProntMessage(string message)
-//        {
-//            Console.WriteLine(message);
-//        }
-//    }
-//}
