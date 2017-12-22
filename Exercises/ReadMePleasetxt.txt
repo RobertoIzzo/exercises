@@ -6,10 +6,24 @@ https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
 											A P P   D O M A I N
 https://docs.microsoft.com/en-us/dotnet/framework/app-domains/application-domains
-https://msdn.microsoft.com/en-us/library/cxk374d9.aspx			 
-Operating systems and runtime environments typically provide some form of isolation between applications. For example, Windows uses processes to isolate applications. This isolation is necessary to ensure that code running in one application cannot adversely affect other, unrelated applications.
-
-Application domains provide an isolation boundary for security, reliability, and versioning, and for unloading assemblies. Application domains are typically created by runtime hosts, which are responsible for bootstrapping the common language runtime before an application is run.
+https://msdn.microsoft.com/en-us/library/cxk374d9.aspx	
+http://www.c-sharpcorner.com/article/appdomain-concept-in-Asp-Net/	
+https://www.codeproject.com/Articles/34985/Threads-Process-and-AppDomains	
+https://www.codeproject.com/Articles/6578/Use-AppDomains-To-Reduce-Memory-Consumption-in-NET
+ Application domains remained a mystery to me for quite a while, but after some general reading in this topic,
+  I came to the following understanding: In .NET, the basic unit of execution is NOT the process, 
+  rather it is that of the Application Domain. The only true process is what is called a Runtime Host.
+   The CLR is a DLL which means that, in order to run, it must be hosted in some process: 
+   The runtime host. T
+   here are basically three runtimes with the .NET framework: Internet Explorer, ASP.NET, and Windows shell
+Operating systems and runtime environments typically provide some form of isolation between applications.
+ For example, Windows uses processes to isolate applications. This isolation is necessary 
+ to ensure that code running in one application cannot adversely affect other, unrelated applications.
+ The point I’m trying to make here is that everything in .NET runs within an application domain. 
+ Even though you never create an AppDomain explicitly, the runtime host creates a default domain for you before running your application runs. What makes them even more powerful, is that a single process can have multiple domains running within it. Unlike a thread, each application domain runs isolated from the others with its own address space and memory. So where’s the benefit? What do we get by running multiple applications in the same process versus running multiple processes with single (defaulted) application domains.
+Application domains provide an isolation boundary for security, reliability, and versioning, 
+and for unloading assemblies. Application domains are typically created by runtime hosts, 
+which are responsible for bootstrapping the common language runtime before an application is run.
 use application domains to provide isolation between assemblies.			 
 			                                 C A S  - (Code Access Security)
 

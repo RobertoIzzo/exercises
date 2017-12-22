@@ -677,7 +677,8 @@ namespace Review
         Important = 3,
         Critical = 4
     };
-
+    //Exceptions are intended to be usable anywhere, and if they're not serializable, 
+    //you can't use them across app domains.
     [Serializable]
     public class MyException : Exception, ISerializable
     {
