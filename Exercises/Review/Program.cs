@@ -23,6 +23,7 @@ namespace Review
     */
     public class Program
     {
+        #region DELEGATE
         private delegate Father covariance(int a, int b);
         private delegate void controvariance(Son s);
 
@@ -31,6 +32,8 @@ namespace Review
         public   delegate T1 TypeDelegate2<out T1>();
         delegate void TypeDelegate3<in T>(T arg);
         delegate void TypeDelegate4<in T, in T1>(T arg, T1 arg1);
+
+#endregion
 
         //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count = new ThreadLocal<int>(() => 5);
@@ -442,9 +445,10 @@ namespace Review
             //ho solo il metodo di IIPippo
             IIPippo p1 = new Child();
             p1.Dodo();
-
-            Console.ReadLine();
         }
+
+        #region Method
+
         static Son Covariancemethod(int a, int b)
         {
             return new Son();
@@ -458,7 +462,6 @@ namespace Review
         {
             return "";
         }
-
         public static T GetData<T>(T obj)
         {
             T result;
@@ -526,8 +529,10 @@ namespace Review
             return result;
 
         }
-       
+        #endregion
     }
+
+    #region class
 
     //metodi generici che prendono delegate generico
     public class Test0
@@ -975,4 +980,5 @@ namespace Review
             this.developer = dev;
         }
     }
+#endregion
 }
