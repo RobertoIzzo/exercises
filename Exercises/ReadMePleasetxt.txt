@@ -5,7 +5,7 @@ parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
 											A P P   D O M A I N
-
+https://docs.microsoft.com/en-us/dotnet/framework/app-domains/application-domains
 https://msdn.microsoft.com/en-us/library/cxk374d9.aspx			 
 Operating systems and runtime environments typically provide some form of isolation between applications. For example, Windows uses processes to isolate applications. This isolation is necessary to ensure that code running in one application cannot adversely affect other, unrelated applications.
 
