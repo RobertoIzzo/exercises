@@ -65,7 +65,7 @@ namespace DebugAbdSecurity
                 Debug.Assert(ss == "1");
                 Debug.WriteLine(ex.Message);
             }
-            //parse take only string convert take evythingconvert
+            //parse take only string , instead  convert take everything
 
             int rr = 5;
             double sss = Convert.ToDouble(rr);

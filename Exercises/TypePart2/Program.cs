@@ -93,6 +93,12 @@ namespace TypePart2
                     }
                 }
             }
+            //Null reference ex
+            //Pluto p = new Pluto();
+            //Paperino<Pluto> pp = new Pluto();
+            //Console.WriteLine(pp.GetName(p).GetName(p));
+
+
             Console.ReadLine();
 
 
@@ -270,6 +276,16 @@ namespace TypePart2
         public Test GetIt(Test arg)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class  Pluto : Paperino<Pluto> { }
+
+    public class Paperino<T>
+    {
+        public T GetName(T arg)
+        {
+            return default(T);
         }
     }
 }
