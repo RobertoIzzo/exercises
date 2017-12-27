@@ -4,6 +4,9 @@ https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
+							MARSHALING
+https://msdn.microsoft.com/it-it/library/eaw10et3(v=vs.110).aspx#marshaling_and_com_apartments
+
 											A P P   D O M A I N
 https://docs.microsoft.com/en-us/dotnet/framework/app-domains/application-domains
 https://msdn.microsoft.com/en-us/library/cxk374d9.aspx	
