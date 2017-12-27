@@ -34,7 +34,13 @@ Operating systems and runtime environments typically provide some form of isolat
 Application domains provide an isolation boundary for security, reliability, and versioning, 
 and for unloading assemblies. Application domains are typically created by runtime hosts, 
 which are responsible for bootstrapping the common language runtime before an application is run.
-use application domains to provide isolation between assemblies.			 
+use application domains to provide isolation between assemblies.
+
+APP DOMAIN AND EXCEPTION 
+Because your exceptions may need to be marshalled between different AppDomains and if they aren't (properly) serializable you will lose precious debugging information. Unlike other classes, you won't have control over whether your exception will be marshalled -- it will.
+
+When I mean "you won't have control" I mean that classes you create generally have a finite space of existence and the existence is well known. If it's a return value and someone tries to call it in a different AppDomain (or on a different machine) they will get a fault and can just say "Don't use it that way." The caller knows they have to convert it into a type that can be serialized (by wrapping the method call). However since exceptions are bubbled up to the very top if not caught they can transcend AppDomain boundaries you didn't even know you had. Your custom application exception 20 levels deep in a different AppDomain might be the exception reported at Main() and nothing along the way is going to convert it into a serializable exception for you.
+
 			                                 C A S  - (Code Access Security)
 
 -https://en.wikipedia.org/wiki/Code_Access_Security
