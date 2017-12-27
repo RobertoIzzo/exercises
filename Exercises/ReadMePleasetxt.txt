@@ -41,6 +41,13 @@ Because your exceptions may need to be marshalled between different AppDomains a
 
 When I mean "you won't have control" I mean that classes you create generally have a finite space of existence and the existence is well known. If it's a return value and someone tries to call it in a different AppDomain (or on a different machine) they will get a fault and can just say "Don't use it that way." The caller knows they have to convert it into a type that can be serialized (by wrapping the method call). However since exceptions are bubbled up to the very top if not caught they can transcend AppDomain boundaries you didn't even know you had. Your custom application exception 20 levels deep in a different AppDomain might be the exception reported at Main() and nothing along the way is going to convert it into a serializable exception for you.
 
+							SERIALIZABLE
+What is it?
+When you create an object in a .Net framework application, you don't need to think about how the data is stored in memory. Because the .Net Framework takes care of that for you. However, if you want to store the contents of an object to a file, send an object to another process or transmit it across the network, you do have to think about how the object is represented because you will need to convert to a different format. This conversion is called SERIALIZATION.
+
+Uses for Serialization
+Serialization allows the developer to save the state of an object and recreate it as needed, providing storage of objects as well as data exchange. Through serialization, a developer can perform actions like sending the object to a remote application by means of a Web Service, passing an object from one domain to another, passing an object through a firewall as an XML string, or maintaining security or user-specific information across applications.
+
 			                                 C A S  - (Code Access Security)
 
 -https://en.wikipedia.org/wiki/Code_Access_Security
