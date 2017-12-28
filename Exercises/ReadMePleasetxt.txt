@@ -5,6 +5,11 @@ parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
 											A P P   D O M A I N
+ Runtime Hosts : When we create an application in .NET, regardless of the type of the application 
+(Console Applications, Windows applications, Web services, etc), 
+it has to be hosted by a Win32 process.  This is because none of these are Win32 applications. 
+ This process is what we call the Runtime Host.  The following are the runtime hosts shipped with .NET Framework:
+  ASP.NET, IE and Shell.  It is also possible to write our own Runtime host using some Microsoft APIs.
 https://docs.microsoft.com/en-us/dotnet/framework/app-domains/application-domains
 https://msdn.microsoft.com/en-us/library/cxk374d9.aspx	
 http://www.c-sharpcorner.com/article/appdomain-concept-in-Asp-Net/	
