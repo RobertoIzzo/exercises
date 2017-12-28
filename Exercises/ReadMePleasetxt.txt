@@ -4,6 +4,9 @@ https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
+							MARSHALING
+https://msdn.microsoft.com/it-it/library/eaw10et3(v=vs.110).aspx#marshaling_and_com_apartments
+
 											A P P   D O M A I N
  Runtime Hosts : When we create an application in .NET, regardless of the type of the application 
 (Console Applications, Windows applications, Web services, etc), 
@@ -15,21 +18,44 @@ https://msdn.microsoft.com/en-us/library/cxk374d9.aspx
 http://www.c-sharpcorner.com/article/appdomain-concept-in-Asp-Net/	
 https://www.codeproject.com/Articles/34985/Threads-Process-and-AppDomains	
 https://www.codeproject.com/Articles/6578/Use-AppDomains-To-Reduce-Memory-Consumption-in-NET
- Application domains remained a mystery to me for quite a while, but after some general reading in this topic,
-  I came to the following understanding: In .NET, the basic unit of execution is NOT the process, 
+
+
+An AppDomain basically provides an isolated region in which code runs inside of a process.
+
+An easy way to think of it is almost like a lighter-weight process sitting inside of your main process. Each AppDomain exists within a process in complete isolation, which allows you to run code safely (it can be unloaded without tearing down the whole process if needed), with separate security, etc.
+
+As to your specifics - if you run code in 2 different AppDomains within a process, the code will run in isolation. Any communication between the AppDomains will get either serialized or handled via MarshallByRefObject. It behaves very much like using remoting in this regard. This provides a huge amount of security - you can run code that you don't trust, and if it does something wrong, it will not affect you.
+
+In .NET, the basic unit of execution is NOT the process, 
   rather it is that of the Application Domain. The only true process is what is called a Runtime Host.
    The CLR is a DLL which means that, in order to run, it must be hosted in some process: 
-   The runtime host. T
-   here are basically three runtimes with the .NET framework: Internet Explorer, ASP.NET, and Windows shell
+   The runtime host. 
+   There are basically three runtimes with the .NET framework: Internet Explorer, ASP.NET, and Windows shell
 Operating systems and runtime environments typically provide some form of isolation between applications.
  For example, Windows uses processes to isolate applications. This isolation is necessary 
  to ensure that code running in one application cannot adversely affect other, unrelated applications.
  The point I’m trying to make here is that everything in .NET runs within an application domain. 
- Even though you never create an AppDomain explicitly, the runtime host creates a default domain for you before running your application runs. What makes them even more powerful, is that a single process can have multiple domains running within it. Unlike a thread, each application domain runs isolated from the others with its own address space and memory. So where’s the benefit? What do we get by running multiple applications in the same process versus running multiple processes with single (defaulted) application domains.
+ Even though you never create an AppDomain explicitly, the runtime host creates a default domain for you before running your application runs. 
+ What makes them even more powerful, is that a single process can have multiple domains running within it. 
+ 
+ Unlike a thread, each application domain runs isolated from the others with its own address space and memory. So where’s the benefit? What do we get by running multiple applications in the same process versus running multiple processes with single (defaulted) application domains.
 Application domains provide an isolation boundary for security, reliability, and versioning, 
 and for unloading assemblies. Application domains are typically created by runtime hosts, 
 which are responsible for bootstrapping the common language runtime before an application is run.
-use application domains to provide isolation between assemblies.			 
+use application domains to provide isolation between assemblies.
+
+APP DOMAIN AND EXCEPTION 
+Because your exceptions may need to be marshalled between different AppDomains and if they aren't (properly) serializable you will lose precious debugging information. Unlike other classes, you won't have control over whether your exception will be marshalled -- it will.
+
+When I mean "you won't have control" I mean that classes you create generally have a finite space of existence and the existence is well known. If it's a return value and someone tries to call it in a different AppDomain (or on a different machine) they will get a fault and can just say "Don't use it that way." The caller knows they have to convert it into a type that can be serialized (by wrapping the method call). However since exceptions are bubbled up to the very top if not caught they can transcend AppDomain boundaries you didn't even know you had. Your custom application exception 20 levels deep in a different AppDomain might be the exception reported at Main() and nothing along the way is going to convert it into a serializable exception for you.
+
+							SERIALIZABLE
+What is it?
+When you create an object in a .Net framework application, you don't need to think about how the data is stored in memory. Because the .Net Framework takes care of that for you. However, if you want to store the contents of an object to a file, send an object to another process or transmit it across the network, you do have to think about how the object is represented because you will need to convert to a different format. This conversion is called SERIALIZATION.
+
+Uses for Serialization
+Serialization allows the developer to save the state of an object and recreate it as needed, providing storage of objects as well as data exchange. Through serialization, a developer can perform actions like sending the object to a remote application by means of a Web Service, passing an object from one domain to another, passing an object through a firewall as an XML string, or maintaining security or user-specific information across applications.
+
 			                                 C A S  - (Code Access Security)
 
 -https://en.wikipedia.org/wiki/Code_Access_Security

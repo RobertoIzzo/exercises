@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,7 +38,6 @@ namespace Review
 
         //la differenza con thredstatic è che tlocal inizilizza sempre la variabile
         public static ThreadLocal<int> _count = new ThreadLocal<int>(() => 5);
-
 
         [ThreadStatic]
         private static int _count1 = 5;
@@ -244,30 +244,6 @@ namespace Review
 
             #endregion // end of MyRegion
 
-            #region TODO
-            //events
-            //expression tree Expression<Func<int, bool>> lambda = num => num < 5;      
-            //plinq and Concurrent collection
-            //async await
-            //garbage collector
-            //dynamic
-            //IComparable
-            //IComparer
-            //IEnumerable
-            //IDisposable
-            //IUnknown
-            //IFormattable
-            //IFormatProvider 
-            //I/O
-            //DEBUG
-            //dataaccess
-            //repositry
-            //linq
-            //Sicurezza
-
-          
-            #endregion // end of MyRegion
-
             #region Serialization
             // Il termine serializzazione indica il processo di conversione di un oggetto in un flusso di byte allo scopo di 
             //   archiviare tale oggetto o trasmetterlo alla memoria, a un database o a un file.
@@ -431,6 +407,21 @@ namespace Review
 
             #endregion // end of MyRegion
 
+            #region Events , Expression, CODEDOM
+            //vedi progetto events , progetto delegate, progetto codedom
+
+            #endregion // end of MyRegion
+
+            #region garbage collector
+            //vedi progetto FCollector
+
+            #endregion // end of MyRegion
+
+            #region  plinq and Concurrent collection
+            //vedi progetto plinq
+
+
+            #endregion // end of MyRegion
 
             Child c1 = new Child();
             c1.DoSomeVirtual();
@@ -444,6 +435,18 @@ namespace Review
             //ho solo il metodo di IIPippo
             IIPippo p1 = new Child();
             p1.Dodo();
+
+            #region TODO
+            //dynamic
+            //I/O
+            //DEBUG
+            //data access
+            //Sicurezza
+            //async await
+            //linq
+
+            #endregion // end of MyRegion
+
         }
 
         #region Method
@@ -920,6 +923,51 @@ namespace Review
 
     public class Figlio : Padre { }
 
+    //NET Framework 4.6 and 4.5  =>Libreria di classi .NET Framework
+    //https://msdn.microsoft.com/it-it/library/aa139615.aspx
+    public class MyClass : IComparable, IComparer, IEnumerable, IFormattable, IFormatProvider, ICloneable, ISerializable,IServiceProvider
+    {
+        public int Compare(object x, object y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetFormat(Type formatType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetService(Type serviceType)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     //Value type
     public struct Point

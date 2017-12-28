@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Delegate
 {
+    //expression tree Expression<Func<int, bool>> lambda = num => num < 5;   
+
     class Program
     {
         private delegate Father covariance(int a, int b);
@@ -92,7 +94,7 @@ namespace Delegate
 
             Predicate<int> pred = (x) => x > 1;
 
-            // EXPRESSION TREE code in tree like data strructure just like CODEDOM that rapresent code in trre like maner
+            // EXPRESSION TREE code in tree like data strructure just like CODEDOM that rapresent code in tree like maner
             //you can use expresion tree for generate code like CodeDOM
             //BlockExpression block = Expression.Block(
             //    Expression.Call(null,
