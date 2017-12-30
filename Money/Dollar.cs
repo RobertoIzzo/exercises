@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 namespace Money
 {
     public class Dollar : Money
-    { 
-        public Dollar(int amount)
+    {
+        public Dollar(int amount, string currency) 
+            : base(amount, currency)
         {
             _amount = amount;
+            _currency = "USD";
         }
 
-        public Money Times(int multiple)
+        public override Money Times(int multiple)
         {
-            return new Dollar(_amount * multiple);
+            return Money.dollar(_amount * multiple);
         }
     }
 }

@@ -13,28 +13,35 @@ namespace Money.Test
         [Fact]
         public void TestMultiplication()
         {
-            Dollar five = new Dollar(5);
-            Assert.Equal(five.Times(2), new Dollar(10));
-            Assert.Equal(five.Times(3), new Dollar(15));
+            Money dollar = Money.dollar(5);
+            Assert.Equal(Money.dollar(10), dollar.Times(2));
+            Assert.Equal(Money.dollar(15), dollar.Times(3));
         }
 
 
         [Fact]
         public void TestFrancMultiplication()
         {
-            Franc five = new Franc(5);
-            Assert.Equal(five.Times(2), new Franc(10));
-            Assert.Equal(five.Times(3), new Franc(15));
+            Franc franc = new Franc(5);
+            Assert.Equal(Money.franc(10), franc.Times(2));
+            Assert.Equal(Money.franc(15), franc.Times(3));
         }
         [Fact]
         public void TestEquality()
         {
-            Assert.True(new Dollar(5).Equals(new Dollar(5)));
-            Assert.False(new Dollar(5).Equals(new Dollar(6)));
-            Assert.True(new Franc(5).Equals(new Franc(5)));
-            Assert.False(new Franc(5).Equals(new Franc(6)));
-            Assert.False(new Franc(5).Equals(new Dollar(5)));
+            Assert.True(Money.dollar(5).Equals(Money.dollar(5)));
+            Assert.False(Money.dollar(5).Equals(Money.dollar(6)));
+            Assert.True(Money.franc(5).Equals(Money.franc(5)));
+            Assert.False(Money.franc(5).Equals(Money.franc(6)));
+            Assert.False(Money.franc(5).Equals(Money.dollar(5)));
 
+        }
+
+        [Fact]
+        public void TestCurrency()
+        {
+            Assert.Equal("USD", Money.dollar(5).currency());
+            Assert.Equal("CHF",Money.franc(5).currency());
         }
     }
     

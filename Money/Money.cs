@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace Money
 {
-    public class Money
+  abstract  public class Money
     {
         protected int _amount;
+        protected string _currency;
+
+        protected Money(int amount, string currency)
+        {
+            _amount = amount;
+            _currency = currency;
+        }
+
 
         public override bool Equals(object obj)
         {
@@ -18,5 +26,21 @@ namespace Money
         }
 
 
+        public static Money dollar(int amount)
+        {
+            return new Dollar(amount, "USD");
+        }
+
+        public static Money franc(int amount)
+        {
+            return new Franc(amount,"CHF");
+        }
+
+        public abstract Money Times(int multiple);
+
+        public  string currency()
+        {
+            return _currency;
+        }
     }
 }

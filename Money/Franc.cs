@@ -8,15 +8,17 @@ namespace Money
 {
     public class Franc :Money
     {
-        public Franc(int amount)
+
+        public Franc(int amount,string currency) 
+            : base(amount, currency)
         {
             _amount = amount;
+            _currency = "CHF";
         }
 
-      
-        public Money Times(int multiple)
+        public override Money Times(int multiple)
         {
-            return new Franc(_amount * multiple);
+            return Money.franc(_amount * multiple);
         }
     }
 }
