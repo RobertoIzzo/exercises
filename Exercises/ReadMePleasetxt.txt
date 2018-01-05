@@ -53,8 +53,21 @@ When I mean "you won't have control" I mean that classes you create generally ha
 What is it?
 When you create an object in a .Net framework application, you don't need to think about how the data is stored in memory. Because the .Net Framework takes care of that for you. However, if you want to store the contents of an object to a file, send an object to another process or transmit it across the network, you do have to think about how the object is represented because you will need to convert to a different format. This conversion is called SERIALIZATION.
 
-Uses for Serialization
+In informatica, la serializzazione è un processo per salvare un oggetto in un supporto di memorizzazione lineare (ad esempio, un file o un'area di memoria), o per trasmetterlo su una connessione di rete. La serializzazione può essere in forma binaria o può utilizzare codifiche testuali (ad esempio il formato XML) direttamente leggibili dagli esseri umani. Lo scopo della serializzazione è di trasmettere l'intero stato dell'oggetto in modo che esso possa essere successivamente ricreato nello stesso identico stato dal processo inverso, chiamato deserializzazione.
+						serialiaùzzazione leggibile ad esseri umani
+Alla fine degli anni novanta si sono affermati protocolli alternativi a quelli standard usati in precedenza: il linguaggio di markup XML è stato usato per generare codice leggibile in formato testo. Questa tecnica è particolarmente utile per rendere gli oggetti persistenti comprensibili agli umani, oppure per trasmetterli ad altri sistemi che utilizzano diversi linguaggi di programmazione, anche se presenta lo svantaggio di perdere la compattezza di altri tipi di codifica byte-stream, di solito preferiti per motivi di praticità. Una possibile soluzione futura a questo problema potrebbero essere i cosiddetti schemi di compressione trasparente (vedere XML binario). XML è oggi spesso usato per trasferimenti sincroni di dati strutturati fra client e server in applicazioni WEB sviluppate in AJAX. In alternativa si usa JSON, un protocollo di serializzazione di tipo testo più leggero che utilizza la sintassi di JavaScript ma è supportato anche da molti altri linguaggi di programmazione.
+
+				Uses for Serialization
+
 Serialization allows the developer to save the state of an object and recreate it as needed, providing storage of objects as well as data exchange. Through serialization, a developer can perform actions like sending the object to a remote application by means of a Web Service, passing an object from one domain to another, passing an object through a firewall as an XML string, or maintaining security or user-specific information across applications.
+
+		            esempio serializzazione
+appwebX use jsonclient(servicestack) to send class pipporequest  to e webapiY .
+in appwebX pipporequest is serialize in json and send whit rest  call  (POST) to webapiY
+webapiY deserialize json in class pipporequest
+appwebx and webapiy have both class pipporequest (dto) but is not necessari that they have the same variable 
+
+SERIALIZZATORE JSON prende stream + classe pippo e invia a qualcuno che deserializza
 
 			                                 C A S  - (Code Access Security)
 
