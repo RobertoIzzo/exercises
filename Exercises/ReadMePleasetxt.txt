@@ -179,7 +179,13 @@ Most times you're going to want Func or Action if all that needs to happen is to
  
  
 												**synchronization context***
-
+												https://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I
+Let's get some technical points out of the way so we can show how to use this class. 
+A SynchronizationContext allows a thread to communicate with another thread. Suppose you have two threads, Thread1 and Thread2. 
+Say, Thread1 is doing some work, and then Thread1 wishes to execute code on Thread2. One possible way to do it is to ask 
+Thread2 for its SynchronizationContext object, give it to Thread1, and then Thread1 can call SynchronizationContext.
+Send to execute the code on Thread2. Sounds like magic... Well, there is a something you should know. 
+Not every thread has a SynchronizationContext attached to it. One thread that always has a SynchronizationContext is the UI thread.
 ConfigureAwait(true)   default  when the task is done, the continuation will be serialized back to the original thread  
 ConfigureAwait(false)  when the task is done, the continuation will be serialized to the thread of task
  
