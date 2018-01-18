@@ -4,7 +4,7 @@ https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
-							MARSHALING
+						                     	MARSHALING
 https://msdn.microsoft.com/it-it/library/eaw10et3(v=vs.110).aspx#marshaling_and_com_apartments
 
 											A P P   D O M A I N
@@ -49,7 +49,7 @@ Because your exceptions may need to be marshalled between different AppDomains a
 
 When I mean "you won't have control" I mean that classes you create generally have a finite space of existence and the existence is well known. If it's a return value and someone tries to call it in a different AppDomain (or on a different machine) they will get a fault and can just say "Don't use it that way." The caller knows they have to convert it into a type that can be serialized (by wrapping the method call). However since exceptions are bubbled up to the very top if not caught they can transcend AppDomain boundaries you didn't even know you had. Your custom application exception 20 levels deep in a different AppDomain might be the exception reported at Main() and nothing along the way is going to convert it into a serializable exception for you.
 
-							SERIALIZABLE
+							                        SERIALIZABLE
 What is it?
 When you create an object in a .Net framework application, you don't need to think about how the data is stored in memory. Because the .Net Framework takes care of that for you. However, if you want to store the contents of an object to a file, send an object to another process or transmit it across the network, you do have to think about how the object is represented because you will need to convert to a different format. This conversion is called SERIALIZATION.
 
@@ -78,7 +78,7 @@ Writing Verifiably Type-Safe Code
 Just-in-time (JIT) compilation performs a verification process that examines code and tries to determine whether the code is type-safe. Code that is proven during verification to be type-safe is called verifiably type-safe code. Code can be type-safe, yet might not be verifiably type-safe because of the limitations of the verification process or of the compiler. Not all languages are type-safe, and some language compilers, such as Microsoft Visual C++, cannot generate verifiably type-safe managed code. To determine whether the language compiler you use generates verifiably type-safe code, consult the compiler's documentation. If you use a language compiler that generates verifiably type-safe code only when you avoid certain language constructs, you might want to use the PEVerify tool to determine whether your code is verifiably type-safe.
 Code that is not verifiably type-safe can attempt to execute if security policy allows the code to bypass verification. However, because type safety is an essential part of the runtime's mechanism for isolating assemblies, security cannot be reliably enforced if code violates the rules of type safety. By default, code that is not type-safe is allowed to run only if it originates from the local computer. Therefore, mobile code should be type-safe.
 
-                                         SAFE AND UNSAFE CODE
+                                                     SAFE AND UNSAFE CODE
 
 Usato per ottenere la dimensione in byte per un tipo non gestito. I tipi non gestiti includono i tipi predefiniti che sono elencati nella tabella riportata di seguito, nonché quanto segue:
 Tipi enum
@@ -146,7 +146,9 @@ Most times you're going to want Func or Action if all that needs to happen is to
 
 
  https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
- ***async void
+
+																***async void***
+
  Async void methods have different error-handling semantics. When an exception is thrown out of an async Task or async Task<T> method,
  that exception is captured and placed on the Task object. With async void methods, there is no Task object, 
  so any exceptions thrown out of an async void method will be raised directly on the SynchronizationContext that was active when the async void
@@ -163,13 +165,16 @@ Most times you're going to want Func or Action if all that needs to happen is to
  observe the partially async code work as expected, and then move the same code into a GUI or ASP.NET application, where it deadlocks.
  
  
- **synchronization context
+												**synchronization context***
+
 ConfigureAwait(true)   default  when the task is done, the continuation will be serialized back to the original thread  
 ConfigureAwait(false)  when the task is done, the continuation will be serialized to the thread of task
  
  
  
- **Async await in console program
+												**Async await in console program***
+
+
  Unfortunately, that doesn’t work (and in fact, the Visual Studio 11 compiler will reject an async Main method). 
  Remember from our intro post that an async method will return to its caller before it is complete. 
  This works perfectly in UI applications (the method just returns to the UI event loop) and 
@@ -180,17 +185,20 @@ You can work around this by providing your own async-compatible context.
 AsyncContext is a general-purpose context that can be used to enable an asynchronous MainAsync:
 
 the Main method can’t be async. If the Main method were async, it could return before it completed, 
-causing the program to end. Figure 4 demonstrates this exception to the guideline:
+causing the program to end. 
 The Main method for a console application is one of the few situations where code may block on an asynchronous method.
 Stephen Cleary
-***Avoid Async Void
+
+													***Avoid Async Void***
+
 1)To summarize this first guideline, you should prefer async Task to async void.
  Async Task methods enable easier error-handling, composability and testability.
  The exception to this guideline is asynchronous event handlers, which must return void. 
  This exception includes methods that are logically event handlers even 
  if they’re not literally event handlers (for example, ICommand.Execute implementations).
  
-***Async All the Way
+													***Async All the Way  *** 
+
  2)shows a simple example where one method blocks on the result of an async method. 
  This code will work just fine in a console application but will deadlock when called from a GUI or ASP.NET context. 
  This behavior can be confusing, especially considering that stepping through the debugger implies that it’s the await that never completes. 
@@ -199,7 +207,9 @@ Stephen Cleary
  By default, when an incomplete Task is awaited, the current “context” is captured and used to resume the method when the Task completes.
  This “context” is the current SynchronizationContext unless it’s null, in which case it’s the current TaskScheduler. 
  GUI and ASP.NET applications have a SynchronizationContext that permits only one chunk of code to run at a time. 
- When the await completes, it attempts to execute the remainder of the async method within the captured context. But that context already has a thread in it, which is (synchronously) waiting for the async method to complete. They’re each waiting for the other, causing a deadlock.
+ When the await completes, it attempts to execute the remainder of the async method within the captured context. 
+ But that context already has a thread in it, which is (synchronously) waiting for the async method to complete. 
+ They’re each waiting for the other, causing a deadlock.
 
 Note that console applications don’t cause this deadlock. They have a thread pool SynchronizationContext 
 instead of a one-chunk-at-a-time SynchronizationContext, so when the await completes, it schedules the remainder of the async method on a thread pool thread.
@@ -207,7 +217,8 @@ instead of a one-chunk-at-a-time SynchronizationContext, so when the await compl
  This difference in behavior can be confusing when programmers write a test console program, 
  observe the partially async code work as expected, and then move the same code into a GUI or ASP.NET application, where it deadlocks.
  
- ***Configure Context
+													 ***Configure Context***
+
  3)You should not use ConfigureAwait when you have code after the await in the method that needs the context.
  For GUI apps, this includes any code that manipulates GUI elements, writes data-bound properties or 
  depends on a GUI-specific type such as Dispatcher/CoreDispatcher. 
@@ -217,7 +228,7 @@ instead of a one-chunk-at-a-time SynchronizationContext, so when the await compl
  the beginning of the method, perform some awaits and then re-enable its control at the end of the handler;
  the event handler can’t give up its context because it needs to re-enable its control.
  Each async method has its own context, so if one async method calls another async method, their contexts are independent.
- rivate async void button1_Click(object sender, EventArgs e)
+ private async void button1_Click(object sender, EventArgs e)
 {
   button1.Enabled = false;
   try
