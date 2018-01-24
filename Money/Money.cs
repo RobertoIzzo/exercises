@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Money
 {
-    public class Money
+    public class Money : Expression
     {
-        protected int _amount;
+        public int _amount;
         protected string _currency;
 
         public Money(int amount, string currency)
@@ -50,5 +50,47 @@ namespace Money
         {
             return _amount + " " + _currency;
         }
+
+        public Expression plus(Money addend)
+        {
+            return new Sum(this, addend);
+        }
+
+        Money reduce(string to)
+        {
+            return this;
+        }
+    }
+
+    public class Sum : Expression
+    {
+        public Money augend;
+        public Money addend;
+
+        public Sum(Money augend, Money addend)
+        {
+            this.augend = augend;
+            this.addend = addend;
+        }
+
+        public Money reduce(string to)
+        {
+            int amount = augend._amount + addend._amount;
+            return new Money(amount,to);
+        }
+    }
+
+    public class Bank
+    {
+        public Money reduce(Expression source, string to)
+        {
+            return source.reduce(to);
+        }
+    }
+
+
+    public interface Expression
+    {
+        Money reduce(string to);
     }
 }
