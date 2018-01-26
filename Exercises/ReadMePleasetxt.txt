@@ -1,4 +1,20 @@
-																C#
+MSBUILD di trova in ogni .net framework
+ogni visualstudio ha un msbuild
+msbuild è INDIPENDENTE da visualstudio
+
+vs2015 msbuild .net 4.6
+vs2013 msbuild .net 4.5.1
+vs2012 msbuild .net 4.5
+vs2010 msbuild .net 4
+vs2008 msbuild .net 3.5
+
+è possibile compilare un codice in c# da linea di comando con msbuild.exe
+
+
+
+
+
+C#
 Guida c#
 https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
