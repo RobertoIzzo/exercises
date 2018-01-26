@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,9 +57,10 @@ namespace Money
             return new Sum(this, addend);
         }
 
-        Money reduce(string to)
+        public Money reduce(Bank bank, string to)
         {
-            return this;
+            int rate = bank.rate(_currency, to);
+            return new Money(_amount /rate,to);
         }
     }
 
@@ -73,7 +75,7 @@ namespace Money
             this.addend = addend;
         }
 
-        public Money reduce(string to)
+        public Money reduce(Bank bank, string to)
         {
             int amount = augend._amount + addend._amount;
             return new Money(amount,to);
@@ -82,15 +84,49 @@ namespace Money
 
     public class Bank
     {
+        private Hashtable rates = new Hashtable();
+
+        public int rate(string from , string to)
+        {
+            if (from.Equals(to)) return 1;
+          return (int) rates[new Pair(from, to)];
+        }
+        
         public Money reduce(Expression source, string to)
         {
-            return source.reduce(to);
+            return source.reduce(this,to);
+        }
+
+        public void addRate(string from, string to, int rate)
+        {
+            rates.Add(new Pair(from,to),rate );
+        }
+    }
+    public class Pair
+    {
+        private string from;
+        private string to;
+
+        public Pair(string from, string to)
+        {
+            this.from = from;
+            this.to = to;
+        }
+
+        public bool equals(Object obj)
+        {
+            Pair pair = (Pair)obj;
+            return from.Equals(pair.from) && to.Equals(pair.to);
+        }
+
+        public int hashCode()
+        {
+            return 0;
         }
     }
 
-
     public interface Expression
     {
-        Money reduce(string to);
+        Money reduce(Bank bank, string to);
     }
 }

@@ -13,7 +13,7 @@ namespace Money
     //        : base(amount, currency)
     //    {
     //        _amount = amount;
-    //        _currency = "CHF";
+    //        currency = "CHF";
     //    }
 
        

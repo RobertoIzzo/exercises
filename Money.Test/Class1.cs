@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,7 +34,7 @@ namespace Money.Test
         {
             Money five = Money.dollar(5);
             Expression result = five.plus(Money.dollar(5));
-            Sum sum = (Sum) result;
+            Sum sum = (Sum)result;
             Assert.Equal(five, sum.augend);
             Assert.Equal(five, sum.addend);
 
@@ -53,7 +54,7 @@ namespace Money.Test
         public void TestCurrency()
         {
             Assert.Equal("USD", Money.dollar(5).currency());
-            Assert.Equal("CHF",Money.franc(5).currency());
+            Assert.Equal("CHF", Money.franc(5).currency());
         }
 
         [Fact]
@@ -63,7 +64,28 @@ namespace Money.Test
             Money result = bank.reduce(Money.dollar(1), "USD");
             Assert.Equal(Money.dollar(1), result);
         }
-    }
 
-   
+        [Fact]
+        public void TestReduceMoneyDifferentCountry()
+        {
+            Bank bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            Money result = bank.reduce(Money.franc(2), "USD");
+            Assert.Equal(Money.dollar(1), result);
+
+        }
+
+        [Fact]
+        public void TestArrayEquals()
+        {
+            Assert.Equal(new Object[] { "abc" }, new Object[] { "abc" });
+        }
+
+        [Fact]
+        public void TestIdentityRAte()
+        {
+            Assert.Equal(1, new Bank().rate("USD", "USD"));
+        }
+
+    }
 }
