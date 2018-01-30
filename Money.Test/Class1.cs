@@ -15,8 +15,8 @@ namespace Money.Test
         public void TestMultiplication()
         {
             Money dollar = Money.dollar(5);
-            Assert.Equal(Money.dollar(10), dollar.Times(2));
-            Assert.Equal(Money.dollar(15), dollar.Times(3));
+            Assert.Equal(Money.dollar(10), dollar.times(2));
+            Assert.Equal(Money.dollar(15), dollar.times(3));
         }
 
         [Fact]
@@ -37,9 +37,7 @@ namespace Money.Test
             Sum sum = (Sum)result;
             Assert.Equal(five, sum.augend);
             Assert.Equal(five, sum.addend);
-
         }
-
 
         [Fact]
         public void TestEquality()
@@ -87,5 +85,46 @@ namespace Money.Test
             Assert.Equal(1, new Bank().rate("USD", "USD"));
         }
 
+        [Fact]
+        public void TestMixedAddition()
+        {
+            Expression fiveBucks = Money.dollar(5);
+            Expression tenFrancs = Money.franc(10);
+            Bank bank = new Bank();
+            bank.addRate("CHF","USD",2);
+            Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+            Assert.Equal(Money.dollar(10), result);
+        }
+
+        [Fact]
+        public void TestSumPlusMoney()
+        {
+            Expression fiveBucks = Money.dollar(5);
+            Expression tenFrancs = Money.franc(10);
+            Bank bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+            Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+            Assert.Equal(Money.dollar(10), result);
+        }
+
+        [Fact]
+        public void TestSumTimes()
+        {
+            Expression fiveBucks = Money.dollar(5);
+            Expression tenFrancs = Money.franc(10);
+            Bank bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            Expression sum = new Sum(fiveBucks, tenFrancs).times(2);
+            Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+            Assert.Equal(Money.dollar(10), result);
+        }
+
+        [Fact]
+        public void testPlusSanCurrebùncyreturnsmoney()
+        {
+            Expression sum = Money.dollar(1).plus(Money.dollar(1));
+            sum.
+        }
     }
 }

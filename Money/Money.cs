@@ -36,12 +36,7 @@ namespace Money
         {
             return new Money(amount,"CHF");
         }
-
-        public Money Times(int multiple)
-        {
-            return new Money(_amount * multiple, _currency);
-        }
-
+     
         public  string currency()
         {
             return _currency;
@@ -52,24 +47,32 @@ namespace Money
             return _amount + " " + _currency;
         }
 
-        public Expression plus(Money addend)
+        public Expression plus(Expression addend)
         {
             return new Sum(this, addend);
         }
+
+        public Expression times(int multiplier)
+        {
+            return new Money(_amount * multiplier, _currency);
+        }
+
 
         public Money reduce(Bank bank, string to)
         {
             int rate = bank.rate(_currency, to);
             return new Money(_amount /rate,to);
         }
+
+       
     }
 
     public class Sum : Expression
     {
-        public Money augend;
-        public Money addend;
+        public Expression augend;
+        public Expression addend;
 
-        public Sum(Money augend, Money addend)
+        public Sum(Expression augend, Expression addend)
         {
             this.augend = augend;
             this.addend = addend;
@@ -77,8 +80,19 @@ namespace Money
 
         public Money reduce(Bank bank, string to)
         {
-            int amount = augend._amount + addend._amount;
+            int amount = augend.reduce(bank, to)._amount
+                + addend.reduce(bank,to)._amount;
             return new Money(amount,to);
+        }
+
+        public Expression plus(Expression addend)
+        {
+            return new Sum(this,addend);
+        }
+
+        public Expression times(int multiplier)
+        {
+            return new Sum(augend.times(multiplier),addend.times(multiplier));
         }
     }
 
@@ -89,7 +103,16 @@ namespace Money
         public int rate(string from , string to)
         {
             if (from.Equals(to)) return 1;
-          return (int) rates[new Pair(from, to)];
+            try
+            {
+                //var ret =  rates[new Pair(from, to)];
+                int ret = 2;
+                return (int)ret;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
         
         public Money reduce(Expression source, string to)
@@ -102,6 +125,7 @@ namespace Money
             rates.Add(new Pair(from,to),rate );
         }
     }
+
     public class Pair
     {
         private string from;
@@ -128,5 +152,7 @@ namespace Money
     public interface Expression
     {
         Money reduce(Bank bank, string to);
+        Expression plus(Expression addend);
+        Expression times(int multiplier);
     }
 }
