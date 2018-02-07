@@ -68,7 +68,7 @@ namespace Delegate
             //controvariance il metodo può avere nei parametri la classe meno derivata di quella definita nel delegate 
             controvariance con = Controvariancemethod;
 
-
+            //lambda function is compact anonymous function
             //lambda expression and anonymous method
             anon aaaa = (x, y) => x + y;
             aaaa += ((x, y) =>
