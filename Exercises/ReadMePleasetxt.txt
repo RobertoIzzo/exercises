@@ -20,8 +20,56 @@ https://docs.microsoft.com/it-it/dotnet/csharp/index
 parole chiave c#
 https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 
-						                     	MARSHALING
+						                        MARSHALING
 https://msdn.microsoft.com/it-it/library/eaw10et3(v=vs.110).aspx#marshaling_and_com_apartments
+
+
+
+													IIS
+iis serve pagine html javascript e immagini
+Classic mode
+ (the only mode in IIS6 and below) is a mode where IIS only works with ISAPI extensions and 
+ ISAPI filters directly. In fact, in this mode, ASP.NET is just an ISAPI extension (aspnet_isapi.dll)
+  and an ISAPI filter (aspnet_filter.dll). IIS just treats ASP.NET as an external plugin
+   implemented in ISAPI and works with it like a black box (and only when it's needs 
+   to give out the request to ASP.NET). In this mode, ASP.NET is not much different from PHP or 
+   other technologies for IIS.
+
+Integrated mode,
+ on the other hand, is a new mode in IIS7 where IIS pipeline is tightly integrated (i.e. is just the same) 
+ as ASP.NET request pipeline. ASP.NET can see every request it wants to and manipulate things along the way.
+  ASP.NET is no longer treated as an external plugin. It's completely blended and integrated in IIS.ù
+   In this mode, ASP.NET HttpModules basically have nearly as much power as 
+   an ISAPI filter would have had and ASP.NET HttpHandlers can have nearly equivalent capability as an ISAPI 
+   extension could have. In this mode, ASP.NET is basically a part of IIS.
+
+   https://stackoverflow.com/questions/716049/what-is-the-difference-between-classic-and-integrated-pipeline-mode-in-iis7
+aspnet isapi extention  serve aspx, asmx ,ashx
+			                                     	
+													ISAPI
+
+ (Internet Server Application Programming Interface):
+vivie in un iis process, usa systemaccount,call w3wp(workerprocess)
+													
+													
+													W3WP
+An Internet Information Services (IIS) worker process is a windows process (w3wp.exe ,Win32 applications.) 
+which runs Web applications, and is responsible for handling requests sent to a 
+Web Server for a specific application pool.
+
+It is the worker process for IIS. Each application pool creates at least one instance of w3wp.exe and 
+that is what actually processes requests in your application.
+It is not dangerous to attach to this, that is just a standard windows message.
+workerprocessthread :
+
+
+										       	HTTP RUNTIME
+http application
+http context
+http request
+http response
+wcf non ha httpcontex gli va dato 
+
 
 											A P P   D O M A I N
  Runtime Hosts : When we create an application in .NET, regardless of the type of the application 
@@ -38,15 +86,33 @@ https://www.codeproject.com/Articles/6578/Use-AppDomains-To-Reduce-Memory-Consum
 
 An AppDomain basically provides an isolated region in which code runs inside of a process.
 
-An easy way to think of it is almost like a lighter-weight process sitting inside of your main process. Each AppDomain exists within a process in complete isolation, which allows you to run code safely (it can be unloaded without tearing down the whole process if needed), with separate security, etc.
+An easy way to think of it is almost like a lighter-weight process sitting inside of your main process. 
+Each AppDomain exists within a process in complete isolation, 
+which allows you to run code safely (it can be unloaded without tearing down the whole process if needed),
+ with separate security, etc.
 
-As to your specifics - if you run code in 2 different AppDomains within a process, the code will run in isolation. Any communication between the AppDomains will get either serialized or handled via MarshallByRefObject. It behaves very much like using remoting in this regard. This provides a huge amount of security - you can run code that you don't trust, and if it does something wrong, it will not affect you.
+As to your specifics - if you run code in 2 different AppDomains within a process,
+ the code will run in isolation.
+  Any communication between the AppDomains will get either serialized or handled via MarshallByRefObject.
+   It behaves very much like using remoting in this regard. This provides a huge amount of security - you can run code that you don't trust, and if it does something wrong, it will not affect you.
 
 In .NET, the basic unit of execution is NOT the process, 
   rather it is that of the Application Domain. The only true process is what is called a Runtime Host.
    The CLR is a DLL which means that, in order to run, it must be hosted in some process: 
    The runtime host. 
-   There are basically three runtimes with the .NET framework: Internet Explorer, ASP.NET, and Windows shell
+   There are basically three runtimes with the .NET framework:  Internet Explorer, ASP.NET , Windows shell
+
+												 Internet Explorer 
+Creates application domains in which to run managed controls. The .NET Framework supports the download and execution of browser-based controls. The runtime interfaces with the extensibility mechanism of Microsoft Internet Explorer through a mime filter to create application domains in which to run the managed controls. By default, one application domain is created for each Web site.
+													
+													ASP.NET 
+Loads the runtime into the process that is to handle the Web request. ASP.NET also creates an application domain for each Web application that will run on a Web server.
+												
+												Windows shell
+Invokes runtime hosting code to transfer control to the runtime each time an executable is launched from the shell.
+
+
+
 Operating systems and runtime environments typically provide some form of isolation between applications.
  For example, Windows uses processes to isolate applications. This isolation is necessary 
  to ensure that code running in one application cannot adversely affect other, unrelated applications.
@@ -84,6 +150,35 @@ webapiY deserialize json in class pipporequest
 appwebx and webapiy have both class pipporequest (dto) but is not necessari that they have the same variable 
 
 SERIALIZZATORE JSON prende stream + classe pippo e invia a qualcuno che deserializza
+
+
+												RUNTIME HOST
+
+ 
+And from a simplified traditional OS point of view, the CLR is really just a set of DLLs. 
+So, you need a OS process to load and execute the entry point of that CLR DLL. 
+This hosting executable is your runtime host. 
+In reality the .Net runtime host does a lot of things for the CLR
+The hosting process is started like any other process. 
+Basically, what makes it a .Net runtime host is that it loads the CLR.
+
+The CLR has been designed to support a variety of different types of applications,
+ from Web server applications to applications with a traditional rich Windows user interface. 
+ Each type of application requires a runtime host to start it.
+  The runtime host loads the runtime into a process, creates the application domains within the process,
+   and loads user code into the application domains.
+
+The .NET Framework ships with a number of different runtime hosts, including the hosts listed in the following table.
+1)everything in .NET runs within an application domain. 
+2) Even though you never create an AppDomain explicitly, the runtime host creates a default domain for you before running
+   your application runs. 
+3)if you run code in 2 different AppDomains within a process,
+ the code will run in isolation.
+  Any communication between the AppDomains will get either serialized or handled via MarshallByRefObject.
+4)The only true process is what is called a Runtime Host (Win32 applications)
+5)  The CLR is a DLL which means that, in order to run, it must be hosted in some process: 
+   The runtime host. 
+
 
 			                                 C A S  - (Code Access Security)
 
