@@ -50,7 +50,22 @@ aspnet isapi extention  serve aspx, asmx ,ashx
 
  (Internet Server Application Programming Interface):
 vivie in un iis process, usa systemaccount,call w3wp(workerprocess)
-													
+											
+											    WORCKER PROCESS THREAD
+											
+Previously, in Win32 native codes, IIS was running ASP Applications, and its thread parameter is quite simple. IIS has a setting – ‘ASPProcessorThreadMax’, which is 25(per CPU) by default, defined in a IIS Metabase (metabase.xml in c:\windows\system32\inetsrv)
+So, this means that if there’re 26 ‘Active Server Pages’ applications, those take very very long time to finish, then 25 ASP’s are running in worker threads, and 1 ASP should stay in a queue, called ‘ASP Request Queue’ very long time.
+
+In other words, if IIS has 2 CPU’s, and 60 ASP’s to run forever, then 50(=25×2) ASP’s are being handled by worker threads, and the rest 10 ASP’s should stay in ‘ASP request queue’.
+
+The above concept is very important. It helps you to understand how to monitor ASP Applications, and how to determine optimal number of worker threads. For example, if a performance counter – ‘Active Server Pages\Requests Queued’ counter indicates a non-zero value, it means there’re queued requests, that means every worker threads are busy. 
+It also means there’s a delay, and you may need to increase #threads, unless %CPU utilization is bad.
+
+In summary, ASPProcessorThreadMax means ‘number of worker threads for ASP, per CPU, per worker process(w3wp)’.
+
+In managed codes, such as ASP.NET Applications, it’s usually difficult to guess how many threads are working on the ASP.NET, or .NET applications. This article handles ‘ASP.NET’ threads, not ‘.NET Application’ threads, because it’s another story.
+
+Before moving forward, it’s required to understand what threads mean, and what a process mean. There can be various definitions, depending on what you have seen. In this article, a process is more about IIS Worker Process, W3WP.exe, that includes & manages thread-pools.		
 													
 													W3WP
 An Internet Information Services (IIS) worker process is a windows process (w3wp.exe ,Win32 applications.) 
@@ -60,7 +75,7 @@ Web Server for a specific application pool.
 It is the worker process for IIS. Each application pool creates at least one instance of w3wp.exe and 
 that is what actually processes requests in your application.
 It is not dangerous to attach to this, that is just a standard windows message.
-workerprocessthread :
+
 
 
 										       	HTTP RUNTIME
