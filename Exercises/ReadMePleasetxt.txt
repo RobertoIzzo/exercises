@@ -52,11 +52,12 @@ aspnet isapi extention  serve aspx, asmx ,ashx
 vivie in un iis process, usa systemaccount,call w3wp(workerprocess)
 											
 											    WORCKER PROCESS THREAD
-											
+	https://fullsocrates.wordpress.com/2013/02/28/asp-net-threads-thread-parameters-in-iis-worker-processes-2/										
 Previously, in Win32 native codes, IIS was running ASP Applications, and its thread parameter is quite simple. IIS has a setting – ‘ASPProcessorThreadMax’, which is 25(per CPU) by default, defined in a IIS Metabase (metabase.xml in c:\windows\system32\inetsrv)
 So, this means that if there’re 26 ‘Active Server Pages’ applications, those take very very long time to finish, then 25 ASP’s are running in worker threads, and 1 ASP should stay in a queue, called ‘ASP Request Queue’ very long time.
 
-In other words, if IIS has 2 CPU’s, and 60 ASP’s to run forever, then 50(=25×2) ASP’s are being handled by worker threads, and the rest 10 ASP’s should stay in ‘ASP request queue’.
+In other words, if IIS has 2 CPU’s, and 60 ASP’s to run forever, then 50(=25×2) ASP’s are being handled by worker threads, 
+and the rest 10 ASP’s should stay in ‘ASP request queue’.
 
 The above concept is very important. It helps you to understand how to monitor ASP Applications, and how to determine optimal number of worker threads. For example, if a performance counter – ‘Active Server Pages\Requests Queued’ counter indicates a non-zero value, it means there’re queued requests, that means every worker threads are busy. 
 It also means there’s a delay, and you may need to increase #threads, unless %CPU utilization is bad.
@@ -65,7 +66,18 @@ In summary, ASPProcessorThreadMax means ‘number of worker threads for ASP, per
 
 In managed codes, such as ASP.NET Applications, it’s usually difficult to guess how many threads are working on the ASP.NET, or .NET applications. This article handles ‘ASP.NET’ threads, not ‘.NET Application’ threads, because it’s another story.
 
-Before moving forward, it’s required to understand what threads mean, and what a process mean. There can be various definitions, depending on what you have seen. In this article, a process is more about IIS Worker Process, W3WP.exe, that includes & manages thread-pools.		
+Before moving forward, it’s required to understand what threads mean, and what a process mean. There can be various definitions, depending on what you have seen. In this article, a process is more about IIS Worker Process, W3WP.exe, that includes & 
+manages thread-pools.	
+
+w3wp => threadpools =>worker thread pippo.aspx
+		    =>worker thread pluto.aspx
+	           =>worker thread pluto.asmx
+			
+A process is an isolated memory space, using virtual memory addresses, and it includes 1, or more threads, those are executed by Processors. A single processor runs one thread at a time, and that’s why thread parameters are usually multiplied by #CPU.
+
+In W3WP process, you can assume that a thread is running one application, such as report.aspx. So, in order to run 2 ASP’s at a time, 2 processors need to run them in multiple threads – those are ‘Worker Threads’. (W3WP also has other types of threads)
+
+So, if a worker process has many kind of applications to run, such as ASP(*.asp), ASP.NET(*.aspx), and Web Services(*.asmx), the status of threads will be as shown above. You can see that w3wp process runs 7 applications in 7 threads.
 													
 													W3WP
 An Internet Information Services (IIS) worker process is a windows process (w3wp.exe ,Win32 applications.) 
