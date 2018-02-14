@@ -23,6 +23,8 @@ https://docs.microsoft.com/it-it/dotnet/csharp/language-reference/keywords/
 						                        MARSHALING
 https://msdn.microsoft.com/it-it/library/eaw10et3(v=vs.110).aspx#marshaling_and_com_apartments
 
+									WCF
+For use httpcontext in wcf (default is null) is necessary use attribute AspNetCompatibility,
 
 
 													IIS
