@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Delegate
 {
+    //Expression<Func<T>>  vs Func<T>
+    // http://ivanitskyi.blogspot.it/2013/06/linq-func-vs-expression.html
     //expression tree Expression<Func<int, bool>> lambda = num => num < 5;   
 
     class Program
