@@ -53,6 +53,7 @@ namespace TypePart2
             int ii = 5;
             Type type1 = ii.GetType();
             /*
+            http://aspalliance.com/778_Attributes_and_Reflection_in_C
             Attributes are a mechanism for adding metadata. Reflection is the process by which a program can read its own metadata. 
 Attributes provide a powerful way to extend metadata by associating declarative information with C# code.
 The attribute information is stored with the metadata of the element and can be easily retrieved at runtime using reflection.
