@@ -52,19 +52,44 @@ namespace TypePart2
             //Reflection
             int ii = 5;
             Type type1 = ii.GetType();
+            /*
+            http://aspalliance.com/778_Attributes_and_Reflection_in_C
+            Attributes are a mechanism for adding metadata. Reflection is the process by which a program can read its own metadata. 
+Attributes provide a powerful way to extend metadata by associating declarative information with C# code.
+The attribute information is stored with the metadata of the element and can be easily retrieved at runtime using reflection.
+Attribute
+An attribute is essentially an object that represents the data that is associated with a program element. 
+The element to which an attribute is attached is referred to as the target of that attribute.
+Attribute targets can be one of the following:
 
-            
-            // Attribute and Reflection
+·         All
+·         Assembly
+·         Class
+·         Constructor
+·         Delegate
+·         Enum
+·         Event
+·         Field
+·         Interface
+·         Method
+·         Module
+·         Parameter
+·         ReturnValue
+·         Struct
 
-            /*Attribute is one of METADATA
-
+Types of Attributes
+Attributes are basically of two types, intrinsic and custom.
+Intrinsic Attributes
+Intrinsic attributes are supplied as part of the Common Language Runtime, and they are integrated into .NET.
+In this example below we use a pre–defined attribute, Obsolete, which marks a program entity as obsolete. The attribute accepts two parameters of which the first is a message and the second a boolean value. If the second parameter is true, the compiler gives an error if the method is invoked, and a warning otherwise.
             Predefined Attributes
             The .Net Framework provides three pre-defined attributes :
             - AttributeUsage
             - Conditional
             - Obsolete
-
              */
+
+            /*Attribute is one of METADATA
             Type type = typeof(Pippo1);
             //iterating through the attribtues of the Rectangle class
             foreach (Object attributes in type.GetCustomAttributes(false))

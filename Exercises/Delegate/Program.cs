@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Delegate
 {
+    //Expression<Func<T>>  vs Func<T>
+    //Expression<Func<int, int>> exp = n => n;
+    //LambdaExpression lambda = exp;
+    // http://ivanitskyi.blogspot.it/2013/06/linq-func-vs-expression.html
     //expression tree Expression<Func<int, bool>> lambda = num => num < 5;   
 
     class Program
@@ -68,7 +72,7 @@ namespace Delegate
             //controvariance il metodo può avere nei parametri la classe meno derivata di quella definita nel delegate 
             controvariance con = Controvariancemethod;
 
-
+            //lambda function is compact anonymous function
             //lambda expression and anonymous method
             anon aaaa = (x, y) => x + y;
             aaaa += ((x, y) =>
