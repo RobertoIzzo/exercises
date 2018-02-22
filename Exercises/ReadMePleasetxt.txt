@@ -239,7 +239,11 @@ Tipi puntatore
 Struct definiti dall'utente che non contengono campi o proprietà che sono tipi di riferimento
 Nell'esempio seguente viene illustrato come ottenere la dimensione di un int:
 C#
+					typeof,GetType,is
 
+typeof =>takes a type name (which you specify at compile time).
+GetType =>gets the runtime type of an instance.
+is => returns true if an instance is in the inheritance tree.
 
 ***typeof  
 int intSize = sizeof(int);
@@ -284,7 +288,7 @@ webgarden
 mutex / monitor
 crud same table :  webapp/iis, webapi/iis, wcf/iis, services, localapp  
 
-iis request queue -->clr trheadpool--->porcessing request
+iis request queue -->clr trheadpool--->processing request
 limited number of threads in the .Net Thread Pool (250 per CPU by default),
 
 
