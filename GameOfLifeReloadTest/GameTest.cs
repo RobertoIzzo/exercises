@@ -54,14 +54,29 @@ namespace GameOfLifeReloadTest
         }
 
         [Fact]
+        public void GivenNeighborsOutOfWorld_WhenCellSearchNeighborsLive_IgnoreNeighbors()
+        {
+            //ARRANGE
+            Cell sut = new Cell(0, 0);
+            Cell[][] word = Mother.GivenOutLiveNeighbors(sut);
+
+            //ACT
+            sut.Search(word);
+
+            //ASSERT
+            Assert.True(sut.NeighborsLive == 1);
+        }
+
+        [Fact]
         public void GivenDeadCellWith3LiveNeighbors_WhenConvert_ReturnIsAlveTrue()
         {
             //ARRANGE
             Cell sut = new Cell(1, 1);
             Cell[][] word = Mother.Given3LiveNeighbors(sut);
-            
+            sut.Search(word);
+
             //ACT
-            sut.Convert(word);
+            sut.Convert();
 
             //ASSERT
             Assert.True(sut.IsLive);
@@ -74,9 +89,11 @@ namespace GameOfLifeReloadTest
             Cell sut = new Cell(1, 1);
             Cell[][] word = Mother.Given1LiveNeighbors(sut);
             sut.SetLive();
+            sut.Search(word);
 
             //ACT
-            sut.Convert(word);
+
+            sut.Convert();
 
             //ASSERT
             Assert.False(sut.IsLive);
@@ -89,9 +106,10 @@ namespace GameOfLifeReloadTest
             Cell sut = new Cell(1, 1);
             Cell[][] word = Mother.Given4LiveNeighbors(sut);
             sut.SetLive();
+            sut.Search(word);
 
             //ACT
-            sut.Convert(word);
+            sut.Convert();
 
             //ASSERT
             Assert.False(sut.IsLive);
@@ -108,6 +126,22 @@ namespace GameOfLifeReloadTest
             word[1] = new Cell[3];
             word[2] = new Cell[3];
             word[1][1] = cell;
+
+            Cell left = new Cell(1, 0);
+            left.SetLive();
+            word[1][0] = left;
+            Cell right = new Cell(1, 2);
+            word[1][2] = right;
+            return word;
+        }
+
+        public static Cell[][] GivenOutLiveNeighbors(Cell cell)
+        {
+            Cell[][] word = new Cell[3][];
+            word[0] = new Cell[3];
+            word[1] = new Cell[3];
+            word[2] = new Cell[3];
+            word[0][0] = cell;
 
             Cell left = new Cell(1, 0);
             left.SetLive();

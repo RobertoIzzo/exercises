@@ -10,12 +10,11 @@ namespace GameOfLifeReload
     public interface ICell
     {
         void Search(Cell[][] word);
-        void Convert(Cell[][] word);
+        void Convert();
     }
 
     public class Cell
     {
-
         public bool IsLive { get; protected set; }
         public int PositionX { get; protected set; }
         public int PositionY { get; protected set; }
@@ -35,42 +34,153 @@ namespace GameOfLifeReload
         public void Search(Cell[][] word)
         {
             //top
-            if (word[PositionX - 1][PositionY] != null)
-                NeighborsLive = word[PositionX - 1][PositionY].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckTop(word);
 
             //bottom
-            if (word[PositionX + 1][PositionY] != null)
-                NeighborsLive = word[PositionX + 1][PositionY].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckBottom(word);
 
             //sin
-            if (word[PositionX][PositionY - 1] != null)
-                NeighborsLive = word[PositionX][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            ChecKLeft(word);
 
             //dest
-            if (word[PositionX][PositionY + 1] != null)
-                NeighborsLive = word[PositionX][PositionY + 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckRight(word);
 
             //top sx 
-            if (word[PositionX - 1][PositionY - 1] != null)
-                NeighborsLive = word[PositionX - 1][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckTopLeft(word);
 
             //bottom sx 
-            if (word[PositionX + 1][PositionY - 1] != null)
-                NeighborsLive = word[PositionX + 1][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckBottomLeft(word);
 
             //top dx 
-            if (word[PositionX - 1][PositionY + 1] != null)
-                NeighborsLive = word[PositionX - 1][PositionY + 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckTopRight(word);
 
             //bottom dx 
-            if (word[PositionX + 1][PositionY + 1] != null)
-                NeighborsLive = word[PositionX + 1][PositionY - +1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            CheckBottomRight(word);
 
         }
 
-        public void Convert(Cell[][] word)
+        private void CheckBottomRight(Cell[][] word)
         {
-            Search(word);
+            try
+            {
+                if (word[PositionX + 1][PositionY + 1] != null)
+                    NeighborsLive = word[PositionX + 1][PositionY + 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+                    
+                return;
+            }
+           
+        }
+
+        private void CheckTopRight(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX - 1][PositionY + 1] != null)
+                    NeighborsLive = word[PositionX - 1][PositionY + 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+           
+        }
+
+        private void CheckBottomLeft(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX + 1][PositionY - 1] != null)
+                    NeighborsLive = word[PositionX + 1][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+            
+        }
+
+        private void CheckTopLeft(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX - 1][PositionY - 1] != null)
+                    NeighborsLive = word[PositionX - 1][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+            
+        }
+
+        private void CheckRight(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX][PositionY + 1] != null)
+                    NeighborsLive = word[PositionX][PositionY + 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+           
+        }
+
+        private void ChecKLeft(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX][PositionY - 1] != null)
+                    NeighborsLive = word[PositionX][PositionY - 1].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+         
+        }
+
+        private void CheckBottom(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX + 1][PositionY] != null)
+                    NeighborsLive = word[PositionX + 1][PositionY].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+           
+        }
+
+        private void CheckTop(Cell[][] word)
+        {
+            try
+            {
+                if (word[PositionX - 1][PositionY] != null)
+                    NeighborsLive = word[PositionX - 1][PositionY].IsLive ? NeighborsLive + 1 : NeighborsLive;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+           
+        }
+
+        public void Convert()
+        {
             if (!IsLive && NeighborsLive == 3)
                 IsLive = true;
             if (IsLive && NeighborsLive < 2)
