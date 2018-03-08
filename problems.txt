@@ -1,3 +1,12 @@
 1) provare situazioni non perfette : estremi , celle null
 2) tempo
 3) search/convert/e poi i vicini si azzerano..
+
+**azioni
+trovare vicini
+applicare regole
+
+**stati
+posizione
+numerocivini
+vivo/morto
