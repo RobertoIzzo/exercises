@@ -1,3 +1,8 @@
+Microsoft Build Engine è una piattaforma per la compilazione di applicazioni. Questo motore, che è noto anche come MSBuild, fornisce uno schema XML per un file di progetto che controlla la modalità di elaborazione e compila il software della piattaforma di compilazione. Visual Studio utilizza MSBuild, ma esso non dipende da Visual Studio. Richiamando msbuild.exe nel progetto o nel file della soluzione, è possibile orchestrare e compilare prodotti in ambienti in cui Visual Studio non è installato.
+
+Visual Studio utilizza MSBuild per caricare e compilare progetti gestiti. I file di progetto in Visual Studio (con estensione CSPROJ, VBPROJ, VCXPROJ e altre) contengono il codice XML di MSBuild che viene eseguito quando si compila un progetto usando l'IDE. I progetti di Visual Studio importano tutte le impostazioni e tutti i processi di compilazione necessari per eseguire il normale lavoro di sviluppo standard, ma è possibile estenderli o modificarli in Visual Studio o mediante un editor XML.
+
+
 MSBUILD serve per compilare e si trova in ogni .net framework
 ogni visualstudio ha un msbuild
 msbuild è INDIPENDENTE da visualstudio
