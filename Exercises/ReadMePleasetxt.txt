@@ -1,4 +1,4 @@
-MSBUILD di trova in ogni .net framework
+MSBUILD serve per compilare e si trova in ogni .net framework
 ogni visualstudio ha un msbuild
 msbuild è INDIPENDENTE da visualstudio
 
