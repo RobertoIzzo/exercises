@@ -136,6 +136,9 @@ In .NET, the basic unit of execution is NOT the process,
    The runtime host. 
    There are basically three runtimes with the .NET framework:  Internet Explorer, ASP.NET , Windows shell
 
+						EXAMPLE OF RUNTIME HOST :
+
+
 												 Internet Explorer 
 Creates application domains in which to run managed controls. The .NET Framework supports the download and execution of browser-based controls. The runtime interfaces with the extensibility mechanism of Microsoft Internet Explorer through a mime filter to create application domains in which to run the managed controls. By default, one application domain is created for each Web site.
 													
