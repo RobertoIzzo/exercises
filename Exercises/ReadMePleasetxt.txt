@@ -105,6 +105,10 @@ http response
 wcf non ha httpcontex gli va dato 
 
 
+The hosting process is started like any other process. Basically, what makes it a .Net runtime host is that it loads the CLR
+
+OS loader ==> CLR PROCESS => .net runtimehost
+
 											A P P   D O M A I N
  Runtime Hosts : When we create an application in .NET, regardless of the type of the application 
 (Console Applications, Windows applications, Web services, etc), 
